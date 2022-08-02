@@ -20,6 +20,15 @@ class V3(object):
             self.y - other.y,
             self.z - other.y
         )
+    #Overload de la multiplicación.
+    def __mul__(self, other):
+        
+        if(type(other) == int): #Si el otro argumento es un entero.
+            return V3(
+                self.x * other,
+                self.y * other,
+                self.z * other
+            )
 
     def __repr__(self): #Overloading de la funcion __repr__
         #Devuelve una cadena que representa el objeto.
