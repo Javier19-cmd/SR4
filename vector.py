@@ -6,7 +6,7 @@ class V3(object):
         self.z = z
 
     #OVerload de la suma.
-    def __add__(self, other):
+    def __add__(self, other): #Este usa +.
         return V3(
             self.x + other.x,
             self.y + other.y,
@@ -14,21 +14,43 @@ class V3(object):
         )
 
     #Ovoerload de la resta.
-    def __sub__(self, other):
+    def __sub__(self, other): #Este usa -.
         return V3(
             self.x - other.x,
             self.y - other.y,
             self.z - other.y
         )
+
+    #Si el producto punto es 1, entonces los dos vectores tienen la misma dirección.
+    #Si el producto punto es 0, los dos vectores son perpendiculares.
+    #Si el producto punto -1, entonces los dos vectores tienen direcciones opuestas.
+
+    def __matmul__(self, other): #Overload para la multiplicación de vectores. Este usa *.
+        return self.x * other.x + self.y * other.y + self.z * other.z 
+
     #Overload de la multiplicación.
-    def __mul__(self, other):
+    def __mul__(self, other): #Este usa @
         
-        if(type(other) == int): #Si el otro argumento es un entero.
+        if(type(other) == int or type(other) == float): #Si el otro argumento es un entero o un float.
+            
             return V3(
                 self.x * other,
                 self.y * other,
                 self.z * other
             )
+
+        #Producto cruz entre dos vectores.
+        return V3(
+            self.y * other.z - self.z * other.y,
+            self.z * other.x - self.x * other.z,
+            self.x * other.y - self.y * other.x
+        )
+
+    def len(self): #Calcula la longitud del vector.
+        return (self.x**2 + self.y**2 + self.z**2)**0.5
+
+    def normalice(self):#Normaliza el vector.
+        return self * (1 / self.len()) 
 
     def __repr__(self): #Overloading de la funcion __repr__
         #Devuelve una cadena que representa el objeto.
