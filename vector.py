@@ -1,12 +1,13 @@
 class V3(object):
     def __init__(self, x, y, z = 0):
-        #Recibiendo una lista de 3 elementos.
+        #Recibiendo una lista de 3 elementos; z puede ser opcional.
         self.x = x
         self.y = y
         self.z = z
 
-    #OVerload de la suma.
+    #Overload de la suma. Este recibe un V3 y el otro vector a operar.
     def __add__(self, other): #Este usa +.
+        
         return V3(
             self.x + other.x,
             self.y + other.y,
@@ -14,7 +15,8 @@ class V3(object):
         )
 
     #Ovoerload de la resta.
-    def __sub__(self, other): #Este usa -.
+    def __sub__(self, other): #Este usa -. Este recibe un V3 y el otro vector a operar.
+
         return V3(
             self.x - other.x,
             self.y - other.y,
@@ -25,11 +27,11 @@ class V3(object):
     #Si el producto punto es 0, los dos vectores son perpendiculares.
     #Si el producto punto -1, entonces los dos vectores tienen direcciones opuestas.
 
-    def __matmul__(self, other): #Overload para la multiplicación de vectores. Este usa *.
+    def __matmul__(self, other): #Overload para el producto punto de vectores. Este usa @.
         return self.x * other.x + self.y * other.y + self.z * other.z 
 
-    #Overload de la multiplicación.
-    def __mul__(self, other): #Este usa @
+    #Overload de la multiplicación. Este usa * y tiene también el producto cruz.
+    def __mul__(self, other): #Este usa *.
         
         if(type(other) == int or type(other) == float): #Si el otro argumento es un entero o un float.
             
@@ -39,7 +41,7 @@ class V3(object):
                 self.z * other
             )
 
-        #Producto cruz entre dos vectores.
+        #Producto cruz entre dos vectores. Este funciona en vectores de tres dimensiones. Funciona solamente si hay dos vectores usando el *.
         return V3(
             self.y * other.z - self.z * other.y,
             self.z * other.x - self.x * other.z,
@@ -50,7 +52,7 @@ class V3(object):
         return (self.x**2 + self.y**2 + self.z**2)**0.5
 
     def normalice(self):#Normaliza el vector.
-        return self * (1 / self.len()) 
+        return self * (1 / self.len())
 
     def __repr__(self): #Overloading de la funcion __repr__
         #Devuelve una cadena que representa el objeto.
