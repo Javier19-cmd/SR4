@@ -426,7 +426,16 @@ def bouding_box(A,B,C):
             ymax = y
  
 
-    return V3(xmin, ymin), V3(xmax, ymax) #Se retorna el mínimo y el máximo.
+    return V3(xmin, ymin, 0), V3(xmax, ymax, 0) #Se retorna el mínimo y el máximo.
+
+#Función que determina si una coordenada está dentro del triángulo que se dibujará.
+def baricentrico(A, B, C, P):
+
+    cx, cy, cz = V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y)
+
+    u = cx/cz
+    v = cy/cz
+    w = cx/cy
 
 def glFinish(): #Función que escribe el archivo de imagen resultante.
 
