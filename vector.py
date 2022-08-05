@@ -5,6 +5,12 @@ class V3(object):
         self.y = y
         self.z = z
 
+    def round(self):
+       self.x = round(self.x)
+       self.y = round(self.y)
+       self.z = round(self.z)
+
+
     #Overload de la suma. Este recibe un V3 y el otro vector a operar.
     def __add__(self, other): #Este usa +.
         

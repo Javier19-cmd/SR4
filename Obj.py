@@ -5,7 +5,7 @@ Referencias:
 2. Try except para los obj's que tienen doble /: 
     https://bobbyhadz.com/blog/python-valueerror-invalid-literal-for-int-with-base-10
 """
-
+from vector import *
 
 class Object(object):
     
@@ -61,9 +61,11 @@ class Object(object):
 #Función que transforma los vértices de la estructura de la imagen.
     def transform_vertex(self, vertex, scale, translate): 
         
-        return [
-            (
+        #print(vertex)
+        #print(scale)
+
+        return V3(
                 (vertex[0] * scale[0]) + translate[0], #X.
-                (vertex[1] * scale[1]) + translate[1] #Y.
+                (vertex[1] * scale[1]) + translate[1], #Y.
+                (vertex[2] * scale[2]) + translate[2] #Z.
             )
-        ]

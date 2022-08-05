@@ -126,7 +126,7 @@ class Render(object):
     def write(self):
             
             #Se abre el archivo con la forma de bw.
-            f = open("SR3.bmp", "bw")
+            f = open("SR4.bmp", "bw")
 
             #Se escribe el encabezado del archivo.
 
