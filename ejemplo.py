@@ -1,4 +1,5 @@
 import struct
+from vector import *
 
 #Set de utilidades. Estas funciones se pueden hacer en otro archivo para mayor comodidad.
 
@@ -368,7 +369,29 @@ for face in cube.faces:
     
     #break
 
+def triangle(A, B, C, colr):
+
+    #colr = color(255, 0, 0) #Color rojo.
+
+    r.current_color = colr
+
+
+    line(A, B)
+    line(B, C)
+    line(C, A)
+
+    if A.y > B.y: #Si A.y es mayor que B.y.
+        A, B = B, A
+    if A.y > C.y: #Si A.y es mayor que C.y.
+        A, C = C, A
+    if B.y > C.y: #Si B.y es mayor que C.y.
+        B, C = C, B
+
 #print(o.lines) #Imprime las líneas del archivo "cube.obj".
+
+col = color(255, 0, 0) #Color rojo.
+
+triangle(V3(10, 70), V3(50, 160), V3(70, 80), col) #Llama a la función "triangle".
 
 #r.point(10, 10) #Dibuja un punto en la pantalla.
 #line(13, 20, 50, 50) #Dibuja una línea en la pantalla.
