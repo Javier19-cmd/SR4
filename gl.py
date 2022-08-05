@@ -403,6 +403,30 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
             for x in range(xi, xf + 1): #Haciendo un for para dibujar las líneas.
                 c1.Vertex(x, y) #Dibujando el punto.
 
+#Haciendo una función que pinte la línea en el render.
+def bouding_box(A,B,C):
+    #Haciendo array con las x's y las y's.
+    coordins = [(A.x, A.y), (B.x, B.y), (C.x, C.y)]
+
+    #Identificando el mínimo y el máximo.
+    xmin = 999999
+    xmax = -999999
+    ymin = 999999
+    ymax = -999999
+
+    for (x, y) in coordins: #Haciendo un for para identificar el mínimo y el máximo.
+        if x < xmin: #Si el x es menor al mínimo, entonces se setea el mínimo.
+            xmin = x
+        if x > xmax: #Si el x es mayor al máximo, entonces se setea el máximo.
+            xmax = x
+
+        if y <ymin: #Si el x es menor al mínimo, entonces se setea el mínimo.
+            ymin = y
+        if y > ymax: #Si el x es mayor al máximo, entonces se setea el máximo.
+            ymax = y
+ 
+
+    return V3(xmin, ymin), V3(xmax, ymax) #Se retorna el mínimo y el máximo.
 
 def glFinish(): #Función que escribe el archivo de imagen resultante.
 

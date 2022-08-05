@@ -30,7 +30,7 @@ def main():
     #triangle(V3(180, 150), V3(120, 160), V3(130, 180), col3) #Llamando al método triangle para dibujar un triángulo.
 
 
-    r = Object('model.obj') #Llamando al método Object del archivo Obj.py.
+    r = Object('Porsche.obj') #Llamando al método Object del archivo Obj.py.
     scale = (5, 5, 5) #Escala del objeto. Tamaño del objeto.
     translate = (512, 512, 0) #Traslación del objeto. #Posición del objeto en el framebuffer.
 
@@ -53,35 +53,9 @@ def main():
 
             #print("Cara: ", f1, f2, f3, f4)
 
-            #Hacer el glLine de los vértices.
-            glLine(
-                v1[0][0], #X0. 
-                v1[0][1], #Y0.
-                v2[0][0], #X1.
-                v2[0][1]  #Y1.
-                )
-            
-            glLine(
-                v2[0][0], #X0.
-                v2[0][1], #Y0.
-                v3[0][0], #X1.
-                v3[0][1] #Y1.
-                )
-
-
-            glLine(
-                v3[0][0], #X0.
-                v3[0][1], #Y0.
-                v4[0][0], #X1.
-                v4[0][1] #Y1.
-                )
-            
-            glLine(
-                v4[0][0], #X0. 
-                v4[0][1], #Y0.
-                v1[0][0], #X1.
-                v1[0][1] #Y1.
-                )
+            #Dibujando los triangulos.
+            triangle(v1, v2, v3, col1)
+            triangle(v1, v3, v4, col1)
 
 
         elif len(face) == 3: #Validando que la cara tenga 3 vértices.
