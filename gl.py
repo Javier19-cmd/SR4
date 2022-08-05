@@ -324,85 +324,6 @@ def glColor(r, g, b): #Función con la que se pueda cambiar el color con el que 
         #print("El color del punto es: ", Color)
 
 
-def triangle(A, B, C, col): #Función que dibuja un triángulo.
-
-    A.round()
-    B.round()
-    C.round()
-    
-    #print(random.uniform(0, 1))
-
-    cols = color(
-        random.uniform(0, 1),
-        random.uniform(0, 1),
-        random.uniform(0, 1),
-        ) #Se manda a hacer el color con las utilidades y se setea el color.
-
-    c1.colorP = cols #Se setea el color del punto.
-
-    #glLine(A, B)
-    #glLine(B, C)
-    #glLine(C, A)
-
-
-    if A.y > B.y: #Si el y de A es mayor al B de y, entonces se hace un cambio.
-        A, B = B, A
-    if A.y > C.y: #Si el y de A es mayor al C de y, entonces se hace un cambio.
-        A, C = C, A
-    if B.y > C.y: #So se el y de B es mayor al C de y, entonces se hace un cambio.
-        B, C = C, B
-
-    c1.colorP = color(0, 0, 1) #Se setea el color del punto.
-    
-    #Calculando la pendiente de la línea que va de a a c.
-    dx_ac = C.x - A.x
-    dy_ac = C.y - A.y
-
-    if dy_ac == 0:
-        return
-
-    mi_ac = dx_ac/dy_ac #Calculando la pendiente.
-
-    #Calculando la pendiente de la línea que va de a a b.
-    dx_ab = B.x - A.x
-    dy_ab = B.y - A.y
-
-    if dy_ab != 0: #Esto es para evitar que haya una división entre cero.
-
-        mi_ab = dx_ab/dy_ab #Calculando la pendiente.
-
-        #Primera mitad.
-        for y in range(A.y, B.y + 1):
-            xi = round(A.x - mi_ac * (A.y - y)) #Calculando el x inicial.
-            xf = round(A.x - mi_ab * (A.y - y)) #Calculando el x final.
-
-            if xi > xf: #Si el x inicial es mayor al x final, entonces se hace un cambio.
-                xi, xf = xf, xi
-
-            for x in range(xi, xf + 1): #Haciendo un for para dibujar las líneas.
-                c1.Vertex(x, y) #Dibujando el punto.
-
-
-    #Calculando la pendiente de la línea que va de a a b.
-    dx_bc = C.x - B.x
-    dy_bc = C.y - B.y
-
-    if dy_bc != 0: #Esto es para evitar que haya una división entre cero.
-    
-        mi_bc = dx_bc/dy_bc #Calculando la pendiente.
-
-
-        #Segunda mitad.
-        for y in range(B.y, C.y + 1):
-            xi = round(A.x - mi_ac * (A.y - y)) #Calculando el x inicial.
-            xf = round(B.x - mi_bc * (B.y - y)) #Calculando el x final.
-
-            if xi > xf: #Si el x inicial es mayor al x final, entonces se hace un cambio.
-                xi, xf = xf, xi
-
-            for x in range(xi, xf + 1): #Haciendo un for para dibujar las líneas.
-                c1.Vertex(x, y) #Dibujando el punto.
-
 #Haciendo una función que pinte la línea en el render.
 def bouding_box(A,B,C):
     #Haciendo array con las x's y las y's.
@@ -426,16 +347,125 @@ def bouding_box(A,B,C):
             ymax = y
  
 
-    return V3(xmin, ymin, 0), V3(xmax, ymax, 0) #Se retorna el mínimo y el máximo.
+    return V3(xmin, ymin), V3(xmax, ymax) #Se retorna el mínimo y el máximo.
 
 #Función que determina si una coordenada está dentro del triángulo que se dibujará.
 def baricentrico(A, B, C, P):
 
     cx, cy, cz = V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y)
 
+    #print("Cálculos: ",cx, cy, cz)
+    print(cz)
+
+
     u = cx/cz
     v = cy/cz
-    w = cx/cy
+    w = 1 - (u - v)
+
+    return (u, v, w) #Se retorna el valor de u, v y w.
+
+def triangle(A, B, C, col): #Función que dibuja un triángulo.
+
+    c1.colorP = col #Se setea el color del punto.
+    
+    min, max = bouding_box(A, B, C) #Se calcula el bounding box del triángulo.
+
+    #Redondeo de los valores.
+    min.x = int(min.x)
+    min.y = int(min.y)
+    max.x = int(max.x)
+    max.y = int(max.y)
+
+    for x in range(min.x, max.x + 1):
+        for y in range(min.y, max.y + 1):
+            w, v, u = baricentrico(A, B, C, V3(x, y)) #Se calcula el baricéntrico con los puntos generados en el for.
+            if w > 0 and v > 0 and u > 0: #Si el valor de w, v y u son mayores a 0, entonces se dibuja el punto.
+                c1.Vertex(x, y)
+            else: 
+                continue #Si no, se continua.
+
+    """
+     Este algoritmo se puede usar también.
+    """
+    # A.round()
+    # B.round()
+    # C.round()
+    
+    # #print(random.uniform(0, 1))
+
+    # cols = color(
+    #     random.uniform(0, 1),
+    #     random.uniform(0, 1),
+    #     random.uniform(0, 1),
+    #     ) #Se manda a hacer el color con las utilidades y se setea el color.
+
+    # c1.colorP = cols #Se setea el color del punto.
+
+    # #glLine(A, B)
+    # #glLine(B, C)
+    # #glLine(C, A)
+
+
+    # if A.y > B.y: #Si el y de A es mayor al B de y, entonces se hace un cambio.
+    #     A, B = B, A
+    # if A.y > C.y: #Si el y de A es mayor al C de y, entonces se hace un cambio.
+    #     A, C = C, A
+    # if B.y > C.y: #So se el y de B es mayor al C de y, entonces se hace un cambio.
+    #     B, C = C, B
+
+    # c1.colorP = color(0, 0, 1) #Se setea el color del punto.
+    
+    # #Calculando la pendiente de la línea que va de a a c.
+    # dx_ac = C.x - A.x
+    # dy_ac = C.y - A.y
+
+    # if dy_ac == 0:
+    #     return
+
+    # mi_ac = dx_ac/dy_ac #Calculando la pendiente.
+
+    # #Calculando la pendiente de la línea que va de a a b.
+    # dx_ab = B.x - A.x
+    # dy_ab = B.y - A.y
+
+    # if dy_ab != 0: #Esto es para evitar que haya una división entre cero.
+
+    #     mi_ab = dx_ab/dy_ab #Calculando la pendiente.
+
+    #     #Primera mitad.
+    #     for y in range(A.y, B.y + 1):
+    #         xi = round(A.x - mi_ac * (A.y - y)) #Calculando el x inicial.
+    #         xf = round(A.x - mi_ab * (A.y - y)) #Calculando el x final.
+
+    #         if xi > xf: #Si el x inicial es mayor al x final, entonces se hace un cambio.
+    #             xi, xf = xf, xi
+
+    #         for x in range(xi, xf + 1): #Haciendo un for para dibujar las líneas.
+    #             c1.Vertex(x, y) #Dibujando el punto.
+
+
+    # #Calculando la pendiente de la línea que va de a a b.
+    # dx_bc = C.x - B.x
+    # dy_bc = C.y - B.y
+
+    # if dy_bc != 0: #Esto es para evitar que haya una división entre cero.
+    
+    #     mi_bc = dx_bc/dy_bc #Calculando la pendiente.
+
+
+    #     #Segunda mitad.
+    #     for y in range(B.y, C.y + 1):
+    #         xi = round(A.x - mi_ac * (A.y - y)) #Calculando el x inicial.
+    #         xf = round(B.x - mi_bc * (B.y - y)) #Calculando el x final.
+
+    #         if xi > xf: #Si el x inicial es mayor al x final, entonces se hace un cambio.
+    #             xi, xf = xf, xi
+
+    #         for x in range(xi, xf + 1): #Haciendo un for para dibujar las líneas.
+    #             c1.Vertex(x, y) #Dibujando el punto.
+
+
+
 
 def glFinish(): #Función que escribe el archivo de imagen resultante.
 
