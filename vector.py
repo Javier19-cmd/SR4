@@ -53,13 +53,7 @@ class V3(object):
             self.z * other.x - self.x * other.z,
             self.x * other.y - self.y * other.x
         )
-    
-    def cross(v1, v2):
-        return (
-            v1.y * v2.z - v1.z * v2.y,
-            v1.z * v2.x - v1.x * v2.z,
-            v1.x * v2.y - v1.y * v2.x
-        )
+
 
     def len(self): #Calcula la longitud del vector.
         return (self.x**2 + self.y**2 + self.z**2)**0.5

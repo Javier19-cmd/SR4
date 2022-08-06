@@ -323,6 +323,15 @@ def glColor(r, g, b): #Función con la que se pueda cambiar el color con el que 
 
         #print("El color del punto es: ", Color)
 
+def cross(v1, v2): #Función que calcula el producto cruz de dos vectores.
+    #Esta función va a ser temporal.
+
+    #Producto cruz entre dos vectores. Este funciona en vectores de tres dimensiones. Funciona solamente si hay dos vectores usando el *.
+    return (
+        v1.y * v2.z - v1.z * v2.y,
+        v1.z * v2.x - v1.x * v2.z,
+        v1.x * v2.y - v1.y * v2.x
+    )
 
 #Haciendo una función que pinte la línea en el render.
 def bouding_box(A,B,C):
@@ -352,24 +361,43 @@ def bouding_box(A,B,C):
 #Función que determina si una coordenada está dentro del triángulo que se dibujará.
 def baricentrico(A, B, C, P):
     
-    #cx, cy, cz = V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y)
-
-    #cx, cy, cz = 
+    cx, cy, cz = cross(V3(B.x - A.x, C.x - A.x, A.x - P.x), V3(B.y - A.y, C.y - A.y, A.y - P.y)) 
+    
+    #print(cx, cy, cz)
 
     #print("Cálculos: ",cx, cy, cz)
     #print(type(cz))
     #print(V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y))
 
-    u = cx/cz
-    v = cy/cz
-    w = 1 - (u + v)
+
+    u = cx*cz
+    v = cy*cz
+    w = 1 - (u - v)
 
     #print(type(u))
 
     return (u, v, w) #Se retorna el valor de u, v y w.
 
 def triangle(A, B, C, col): #Función que dibuja un triángulo.
+    
+    #Creando fuente de luz.
+    L = V3(0, 0, -1) #Dirección de la luz.
+    N = (C - A) * (B - A) #Creando una normal.
+    #print(N)
+    
+    #Creando un vector con la normal.
+    No = N[0]
+    N1 = N[1]
+    N2 = N[2]
+    Vector = V3(No, N1, N2) #Vector normal.
+    #print(Vector)
 
+    i = L.normalice() @ Vector.normalice() #Calculando la intensidad de la luz.
+
+    print(i)
+
+    #gris = color(1 * i, 1 * i, 1 * i) #Se calcula el color de la luz.
+    
     c1.colorP = col #Se setea el color del punto.
     
     min, max = bouding_box(A, B, C) #Se calcula el bounding box del triángulo.
