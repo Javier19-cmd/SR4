@@ -29,7 +29,7 @@ def main():
 
 
     r = Object('modelo.obj') #Llamando al método Object del archivo Obj.py.
-    scale = (5, 5, 10) #Escala del objeto. Tamaño del objeto.
+    scale = (5, 5, 1) #Escala del objeto. Tamaño del objeto.
     translate = (512, 400, 10) #Traslación del objeto. #Posición del objeto en el framebuffer.
 
     #Recorriendo las caras del objeto y dibujando las líneas en el framebuffer.

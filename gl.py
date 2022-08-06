@@ -323,47 +323,67 @@ def glColor(r, g, b): #Función con la que se pueda cambiar el color con el que 
 
         #print("El color del punto es: ", Color)
 
-def cross(v1, v2): #Función que calcula el producto cruz de dos vectores.
-    return (
-        v1.y * v2.z - v1.z * v2.y,
-        v1.z * v2.x - v1.x * v2.z,
-        v1.x * v2.y - v1.y * v2.x
+
+def cross(v1, v2):
+    
+    return(
+        v1.x * v2.y - v1.y * v2.x,
+        v1.x * v2.z - v1.z * v2.x,
+        v1.x * v2.w - v1.w * v2.x,
     )
 
-def bounding_box(A, B, C): #Función que calcula el bounding box de una lista de puntos.
-    coords = [(A.x, A.y), (B.x, B.y), (C.x, C.y)] #Se crea una lista con los puntos.
+def bounding_box(A, B, C):
+    
+    xmin = min(A.x, B.x, C.x)
+    xmax = max(A.x, B.x, C.x)
+    ymin = min(A.y, B.y, C.y)
+    ymax = max(A.y, B.y, C.y)
+    
+    return V3(xmin, xmax), V3(ymin, ymax)
 
-    xmin = -9999999 #Se inicializa el valor mínimo de x.
-    xmax =  9999999 #Se inicializa el valor máximo de x.
-    ymin = -9999999 #Se inicializa el valor mínimo de y.
-    ymax =  9999999 #Se inicializa el valor máximo de y.
+def baricentrico(A, B, C, P):
 
-    for (x, y) in coords:
-        if x < xmin:
-            xmin = x
-        if x > xmax:
-            xmax = x
-        if y < ymin:
-            ymin = y
-        if y > ymax:
-            ymax = y
-        
-    return V3(xmin, xmax), V3(ymin, ymax) #Se retorna una tupla con los valores mínimos y máximos de x y y.
+    cx, cy, cz = cross(
+        V3(B.x - A.x, C.x - A.x, A.x - P.x),
+        V3(B.y - A.y, C.y - A.y, A.y - P.y)
+    )
+
+    u = cx/cz
+    v = cy/cz
+    w = 1 - (u + v)
+
+    return (u, v, w)
 
 def triangle(A, B, C, col): #Función que dibuja un triángulo.
 
 
-    # c1.colorP = color(
-    #     random.uniform(0, 1),
-    #     random.uniform(0, 1),
-    #     random.uniform(0, 1)
-    # )
+    c1.colorP = color(
+        random.uniform(0, 1),
+        random.uniform(0, 1),
+        random.uniform(0, 1)
+    )
 
     #print(A, B, C) #Se imprimen las coordenadas.
 
 
-    c1.colorP = col #Se setea el color del punto.
-    
+    #c1.colorP = col #Se setea el color del punto.
+
+    #Calculando los mínimos y máximos de los puntos.
+    min, max = bounding_box(A, B, C)
+
+    #print("Mínimos y máximos: ", xmin, xmax)
+    #Redondear los mínimos y máximos.
+    min.round()
+    max.round()
+
+    for x in range(min.x, max.x + 1): #Recorriendo los puntos.
+        for y in range(min.y, max.y + 1): #Recorriendo los puntos.
+            u, v, w = baricentrico(A, B, C, V3(x, y, 0)) #Calculando los valores de u, v y w.
+
+            if (u < 0 or v < 0 or w < 0): #Si alguno de los valores es menor a 0, entonces no se dibuja el punto.
+                continue
+        
+            glVertex(x, y) #Se dibuja el punto.
 
 
     """
