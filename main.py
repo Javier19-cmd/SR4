@@ -28,9 +28,9 @@ def main():
     #triangle(V3(180, 150), V3(120, 160), V3(130, 180), col3) #Llamando al método triangle para dibujar un triángulo.
 
 
-    r = Object('Porsche.obj') #Llamando al método Object del archivo Obj.py.
+    r = Object('face.obj') #Llamando al método Object del archivo Obj.py.
     scale = (5, 5, 5) #Escala del objeto. Tamaño del objeto.
-    translate = (512, 400, 0) #Traslación del objeto. #Posición del objeto en el framebuffer.
+    translate = (512, 400, 1) #Traslación del objeto. #Posición del objeto en el framebuffer.
 
     #Recorriendo las caras del objeto y dibujando las líneas en el framebuffer.
     for face in r.faces: 
