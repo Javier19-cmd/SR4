@@ -333,7 +333,7 @@ def cross(v1, v2): #Función que calcula el producto cruz de dos vectores.
         v1.x * v2.y - v1.y * v2.x
     )
 
-#Haciendo una función que pinte la línea en el render.
+# #Haciendo una función que pinte la línea en el render.
 def bouding_box(A,B,C):
     #Haciendo array con las x's y las y's.
     coordins = [(A.x, A.y), (B.x, B.y), (C.x, C.y)]
@@ -350,15 +350,15 @@ def bouding_box(A,B,C):
         if x > xmax: #Si el x es mayor al máximo, entonces se setea el máximo.
             xmax = x
 
-        if y <ymin: #Si el x es menor al mínimo, entonces se setea el mínimo.
+        if y < ymin: #Si el y es menor al mínimo, entonces se setea el mínimo.
             ymin = y
-        if y > ymax: #Si el x es mayor al máximo, entonces se setea el máximo.
+        if y > ymax: #Si el y es mayor al máximo, entonces se setea el máximo.
             ymax = y
  
 
     return V3(xmin, ymin), V3(xmax, ymax) #Se retorna el mínimo y el máximo.
 
-#Función que determina si una coordenada está dentro del triángulo que se dibujará.
+# #Función que determina si una coordenada está dentro del triángulo que se dibujará.
 def baricentrico(A, B, C, P):
     
     cx, cy, cz = cross(V3(B.x - A.x, C.x - A.x, A.x - P.x), V3(B.y - A.y, C.y - A.y, A.y - P.y)) 
@@ -380,51 +380,58 @@ def baricentrico(A, B, C, P):
 
 def triangle(A, B, C, col): #Función que dibuja un triángulo.
     
-    #Creando fuente de luz.
-    L = V3(0, 0, -1) #Dirección de la luz.
-    N = (C - A) * (B - A) #Creando una normal.
-    #print(N)
+    # #Creando fuente de luz.
+    # L = V3(0, 0, -1) #Dirección de la luz.
+    # N = (C - A) * (B - A) #Creando una normal.
+    # #print(N)
     
-    #Creando un vector con la normal.
-    No = N[0]
-    N1 = N[1]
-    N2 = N[2]
-    Vector = V3(No, N1, N2) #Vector normal.
-    #print(Vector)
+    # #Creando un vector con la normal.
+    # No = N[0]
+    # N1 = N[1]
+    # N2 = N[2]
+    # Vector = V3(No, N1, N2) #Vector normal.
+    # #print(Vector)
 
-    i = L.normalice() @ Vector.normalice() #Calculando la intensidad de la luz.
+    # i = L.normalice() @ Vector.normalice() #Calculando la intensidad de la luz.
 
-    print(i)
+    # print(i)
 
-    #gris = color(1 * i, 1 * i, 1 * i) #Se calcula el color de la luz.
+    # if i == -1: #Si i es -1, entonces la luz está en el oscuro.
+    #     return
+    # elif i == 0:
+    #     return
+
+    # #gris = color(1 * i, 1 * i, 1 * i) #Se calcula el color de la luz.
     
-    c1.colorP = col #Se setea el color del punto.
+    # c1.colorP = col #Se setea el color del punto.
     
-    min, max = bouding_box(A, B, C) #Se calcula el bounding box del triángulo.
+    # min, max = bouding_box(A, B, C) #Se calcula el bounding box del triángulo.
 
-    #Redondeo de los valores.
-    min.x = int(min.x)
-    min.y = int(min.y)
-    max.x = int(max.x)
-    max.y = int(max.y)
+    # #Redondeo de los valores.
+    # min.x = int(min.x)
+    # min.y = int(min.y)
+    # max.x = int(max.x)
+    # max.y = int(max.y)
 
-    for x in range(min.x, max.x + 1):
-        for y in range(min.y, max.y + 1):
-            w, v, u = baricentrico(A, B, C, V3(x, y)) #Se calcula el baricéntrico con los puntos generados en el for.
-            #print(type(w, v, u))
-            if w < 0 and v < 0 and u < 0: #Si el valor de w, v y u son mayores a 0, entonces se dibuja el punto.
-                continue #Si no, se continua.
+    # for x in range(min.x, max.x + 1):
+    #     for y in range(min.y, max.y + 1):
+    #         w, v, u = baricentrico(A, B, C, V3(x, y)) #Se calcula el baricéntrico con los puntos generados en el for.
+    #         #print(type(w, v, u))
+    #         if w < 0 and v < 0 and u < 0: #Si el valor de w, v y u son mayores a 0, entonces se dibuja el punto.
+    #             continue #Si no, se continua.
              
-            c1.Vertex(x, y)
+    #         c1.Vertex(x, y)
 
     """
      Este algoritmo se puede usar también.
     """
-    # A.round()
-    # B.round()
-    # C.round()
+    A.round()
+    B.round()
+    C.round()
     
-    # #print(random.uniform(0, 1))
+    #print(random.uniform(0, 1))
+
+    #print(col)
 
     # cols = color(
     #     random.uniform(0, 1),
@@ -432,70 +439,78 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
     #     random.uniform(0, 1),
     #     ) #Se manda a hacer el color con las utilidades y se setea el color.
 
-    # c1.colorP = cols #Se setea el color del punto.
+    c1.colorP = col #Se setea el color del punto.
 
-    # #glLine(A, B)
-    # #glLine(B, C)
-    # #glLine(C, A)
+    c1.colorP = color(
+        random.uniform(0, 1),
+        random.uniform(0, 1),
+        random.uniform(0, 1)
+    )
+
+    #print(c1.colorP)
+
+    #glLine(A, B)
+    #glLine(B, C)
+    #glLine(C, A)
 
 
-    # if A.y > B.y: #Si el y de A es mayor al B de y, entonces se hace un cambio.
-    #     A, B = B, A
-    # if A.y > C.y: #Si el y de A es mayor al C de y, entonces se hace un cambio.
-    #     A, C = C, A
-    # if B.y > C.y: #So se el y de B es mayor al C de y, entonces se hace un cambio.
-    #     B, C = C, B
+    if A.y > B.y: #Si el y de A es mayor al B de y, entonces se hace un cambio.
+        A, B = B, A
+    if A.y > C.y: #Si el y de A es mayor al C de y, entonces se hace un cambio.
+        A, C = C, A
+    if B.y > C.y: #So se el y de B es mayor al C de y, entonces se hace un cambio.
+        B, C = C, B
 
-    # c1.colorP = color(0, 0, 1) #Se setea el color del punto.
+    #c1.colorP = color(0, 0, 1) #Se setea el color del punto.
     
-    # #Calculando la pendiente de la línea que va de a a c.
-    # dx_ac = C.x - A.x
-    # dy_ac = C.y - A.y
+    #Calculando la pendiente de la línea que va de a a c.
+    dx_ac = C.x - A.x
+    dy_ac = C.y - A.y
 
-    # if dy_ac == 0:
-    #     return
+    if dy_ac == 0: #Evitando las divisiones por 0.
+        return
 
-    # mi_ac = dx_ac/dy_ac #Calculando la pendiente.
+    mi_ac = dx_ac/dy_ac #Calculando la pendiente.
 
-    # #Calculando la pendiente de la línea que va de a a b.
-    # dx_ab = B.x - A.x
-    # dy_ab = B.y - A.y
+    #Calculando la pendiente de la línea que va de a a b.
+    dx_ab = B.x - A.x
+    dy_ab = B.y - A.y
 
-    # if dy_ab != 0: #Esto es para evitar que haya una división entre cero.
+    if dy_ab != 0: #Esto es para evitar que haya una división entre cero.
 
-    #     mi_ab = dx_ab/dy_ab #Calculando la pendiente.
+        mi_ab = dx_ab/dy_ab #Calculando la pendiente.
 
-    #     #Primera mitad.
-    #     for y in range(A.y, B.y + 1):
-    #         xi = round(A.x - mi_ac * (A.y - y)) #Calculando el x inicial.
-    #         xf = round(A.x - mi_ab * (A.y - y)) #Calculando el x final.
+        #Primera mitad.
+        for y in range(A.y, B.y + 1):
+            xi = round(A.x - mi_ac * (A.y - y)) #Calculando el x inicial.
+            xf = round(A.x - mi_ab * (A.y - y)) #Calculando el x final.
 
-    #         if xi > xf: #Si el x inicial es mayor al x final, entonces se hace un cambio.
-    #             xi, xf = xf, xi
+            if xi > xf: #Si el x inicial es mayor al x final, entonces se hace un cambio.
+                xi, xf = xf, xi
 
-    #         for x in range(xi, xf + 1): #Haciendo un for para dibujar las líneas.
-    #             c1.Vertex(x, y) #Dibujando el punto.
+            for x in range(xi, xf + 1): #Haciendo un for para dibujar las líneas.
+                c1.Vertex(x, y) #Dibujando el punto.
 
 
-    # #Calculando la pendiente de la línea que va de a a b.
-    # dx_bc = C.x - B.x
-    # dy_bc = C.y - B.y
+    #Calculando la pendiente de la línea que va de a a b.
+    dx_bc = C.x - B.x
+    dy_bc = C.y - B.y
 
-    # if dy_bc != 0: #Esto es para evitar que haya una división entre cero.
+    if dy_bc != 0: #Esto es para evitar que haya una división entre cero.
     
-    #     mi_bc = dx_bc/dy_bc #Calculando la pendiente.
+        mi_bc = dx_bc/dy_bc #Calculando la pendiente.
 
 
-    #     #Segunda mitad.
-    #     for y in range(B.y, C.y + 1):
-    #         xi = round(A.x - mi_ac * (A.y - y)) #Calculando el x inicial.
-    #         xf = round(B.x - mi_bc * (B.y - y)) #Calculando el x final.
+        #Segunda mitad.
+        for y in range(B.y, C.y + 1):
+            xi = round(A.x - mi_ac * (A.y - y)) #Calculando el x inicial.
+            xf = round(B.x - mi_bc * (B.y - y)) #Calculando el x final.
 
-    #         if xi > xf: #Si el x inicial es mayor al x final, entonces se hace un cambio.
-    #             xi, xf = xf, xi
+            if xi > xf: #Si el x inicial es mayor al x final, entonces se hace un cambio.
+                xi, xf = xf, xi
 
-    #         for x in range(xi, xf + 1): #Haciendo un for para dibujar las líneas.
-    #             c1.Vertex(x, y) #Dibujando el punto.
+            for x in range(xi, xf + 1): #Haciendo un for para dibujar las líneas.
+                c1.Vertex(x, y) #Dibujando el punto.
 
 
 
