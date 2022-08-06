@@ -21,7 +21,7 @@ def main():
 
     #glColor(0.5, 0.3, 0.1) #Asignando el color del punto.
 
-    col1 = (1, 0, 0) #Color para el primer triángulo.
+    col1 = color(1, 0, 0) #Color para el primer triángulo.
     col2 = (1, 1, 0) #Color para el segundo triángulo.
     col3 = (0, 1, 0) #Color para el tercer triángulo.
 
@@ -30,7 +30,7 @@ def main():
     #triangle(V3(180, 150), V3(120, 160), V3(130, 180), col3) #Llamando al método triangle para dibujar un triángulo.
 
 
-    r = Object('Porsche.obj') #Llamando al método Object del archivo Obj.py.
+    r = Object('model.obj') #Llamando al método Object del archivo Obj.py.
     scale = (5, 5, 5) #Escala del objeto. Tamaño del objeto.
     translate = (512, 512, 0) #Traslación del objeto. #Posición del objeto en el framebuffer.
 
@@ -72,6 +72,9 @@ def main():
             v3 = r.transform_vertex(r.vertices[f3], scale, translate)
 
             #print("Cara: ", f1, f2, f3)
+            #print(v1, v2, v3)
+
+            #colr = color(1, 0, 0) #Color para el triángulo.
 
             triangle(v1, v2, v3, col1) #Llamando al método triangle para dibujar un triángulo.
             

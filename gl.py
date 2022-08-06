@@ -351,16 +351,20 @@ def bouding_box(A,B,C):
 
 #Función que determina si una coordenada está dentro del triángulo que se dibujará.
 def baricentrico(A, B, C, P):
+    
+    #cx, cy, cz = V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y)
 
-    cx, cy, cz = V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y)
+    #cx, cy, cz = 
 
     #print("Cálculos: ",cx, cy, cz)
-    print(cz)
-
+    #print(type(cz))
+    #print(V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y))
 
     u = cx/cz
     v = cy/cz
-    w = 1 - (u - v)
+    w = 1 - (u + v)
+
+    #print(type(u))
 
     return (u, v, w) #Se retorna el valor de u, v y w.
 
@@ -379,10 +383,11 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
     for x in range(min.x, max.x + 1):
         for y in range(min.y, max.y + 1):
             w, v, u = baricentrico(A, B, C, V3(x, y)) #Se calcula el baricéntrico con los puntos generados en el for.
-            if w > 0 and v > 0 and u > 0: #Si el valor de w, v y u son mayores a 0, entonces se dibuja el punto.
-                c1.Vertex(x, y)
-            else: 
+            #print(type(w, v, u))
+            if w < 0 and v < 0 and u < 0: #Si el valor de w, v y u son mayores a 0, entonces se dibuja el punto.
                 continue #Si no, se continua.
+             
+            c1.Vertex(x, y)
 
     """
      Este algoritmo se puede usar también.
