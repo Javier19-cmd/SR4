@@ -324,92 +324,47 @@ def glColor(r, g, b): #Función con la que se pueda cambiar el color con el que 
         #print("El color del punto es: ", Color)
 
 def cross(v1, v2): #Función que calcula el producto cruz de dos vectores.
-    #Esta función va a ser temporal.
-
-    #print("Coordenadas en z: ", v1.z, v2.z)
-
-    #Producto cruz entre dos vectores. Este funciona en vectores de tres dimensiones. Funciona solamente si hay dos vectores usando el *.
     return (
         v1.y * v2.z - v1.z * v2.y,
         v1.z * v2.x - v1.x * v2.z,
         v1.x * v2.y - v1.y * v2.x
     )
 
-# #Haciendo una función que pinte la línea en el render.
-def bouding_box(A,B,C):
-    #Haciendo array con las x's y las y's.
-    coordins = [(A.x, A.y), (B.x, B.y), (C.x, C.y)]
+def bounding_box(A, B, C): #Función que calcula el bounding box de una lista de puntos.
+    coords = [(A.x, A.y), (B.x, B.y), (C.x, C.y)] #Se crea una lista con los puntos.
 
-    #Identificando el mínimo y el máximo.
-    xmin = 999999
-    xmax = -999999
-    ymin = 999999
-    ymax = -999999
+    xmin = -9999999 #Se inicializa el valor mínimo de x.
+    xmax =  9999999 #Se inicializa el valor máximo de x.
+    ymin = -9999999 #Se inicializa el valor mínimo de y.
+    ymax =  9999999 #Se inicializa el valor máximo de y.
 
-    for (x, y) in coordins: #Haciendo un for para identificar el mínimo y el máximo.
-        if x < xmin: #Si el x es menor al mínimo, entonces se setea el mínimo.
+    for (x, y) in coords:
+        if x < xmin:
             xmin = x
-        if x > xmax: #Si el x es mayor al máximo, entonces se setea el máximo.
+        if x > xmax:
             xmax = x
-
-        if y < ymin: #Si el y es menor al mínimo, entonces se setea el mínimo.
+        if y < ymin:
             ymin = y
-        if y > ymax: #Si el y es mayor al máximo, entonces se setea el máximo.
+        if y > ymax:
             ymax = y
- 
-
-    return V3(xmin, ymin), V3(xmax, ymax) #Se retorna el mínimo y el máximo.
-
-# #Función que determina si una coordenada está dentro del triángulo que se dibujará.
-def baricentrico(A, B, C, P):
-
-    
-    print("Punto de P: ", P.x, P.y)
-    print("Punto de A: ", A.x, A.y)
-    
-    cx, cy, cz = cross(
-        V3(B.x - A.x, C.x - A.x, A.x - P.x), 
-        V3(B.y - A.y, C.y - A.y, A.y - P.y)
-    )
-    
-    #print("Cx, cy, cz: ", cx, cy, cz)    
-    #print(cx, cy, cz)
-
-    #print("Cálculos: ",cx, cy, cz)
-    #print(type(cz))
-    #print(V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y))
-
-
-    u = cx/cz
-    v = cy/cz
-    w = 1 - (u - v)
-
-    return (u, v, w) #Se retorna el valor de u, v y w.
-
-    #print(type(u))
+        
+    return V3(xmin, xmax), V3(ymin, ymax) #Se retorna una tupla con los valores mínimos y máximos de x y y.
 
 def triangle(A, B, C, col): #Función que dibuja un triángulo.
 
 
-    c1.colorP = color(
-        random.uniform(0, 1),
-        random.uniform(0, 1),
-        random.uniform(0, 1)
-    )
+    # c1.colorP = color(
+    #     random.uniform(0, 1),
+    #     random.uniform(0, 1),
+    #     random.uniform(0, 1)
+    # )
 
-    min, max = bouding_box(A, B, C) #Se calcula el mínimo y el máximo.
-
-    min.round()
-    max.round()
+    #print(A, B, C) #Se imprimen las coordenadas.
 
 
-    for x in range(min.x, max.x + 1):
-        for y in range(min.y, max.y + 1):
-            u, v, w = baricentrico(A, B, C, V3(x, y)) #Se calcula el valor de u, v y w.
-            #print(u, v, w)
-            if (w < 0 or u < 0 or v < 0): #Si el valor de w es menor a 0, entonces no se dibuja el punto.
-                continue
-            glVertex(x, y) #Se dibuja el punto.
+    c1.colorP = col #Se setea el color del punto.
+    
+
 
     """
      Este algoritmo se puede usar también.
@@ -418,17 +373,17 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
     # B.round()
     # C.round()
     
-    # #print(random.uniform(0, 1))
+    #print(random.uniform(0, 1))
 
-    # #print(col)
+    #print(col)
 
-    # # cols = color(
-    # #     random.uniform(0, 1),
-    # #     random.uniform(0, 1),
-    # #     random.uniform(0, 1),
-    # #     ) #Se manda a hacer el color con las utilidades y se setea el color.
+    # cols = color(
+    #     random.uniform(0, 1),
+    #     random.uniform(0, 1),
+    #     random.uniform(0, 1),
+    #     ) #Se manda a hacer el color con las utilidades y se setea el color.
 
-    # c1.colorP = col #Se setea el color del punto.
+    #c1.colorP = col #Se setea el color del punto.
 
     # c1.colorP = color(
     #     random.uniform(0, 1),

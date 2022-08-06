@@ -28,9 +28,9 @@ def main():
     #triangle(V3(180, 150), V3(120, 160), V3(130, 180), col3) #Llamando al método triangle para dibujar un triángulo.
 
 
-    r = Object('face.obj') #Llamando al método Object del archivo Obj.py.
-    scale = (5, 5, 5) #Escala del objeto. Tamaño del objeto.
-    translate = (512, 400, 1) #Traslación del objeto. #Posición del objeto en el framebuffer.
+    r = Object('modelo.obj') #Llamando al método Object del archivo Obj.py.
+    scale = (5, 5, 10) #Escala del objeto. Tamaño del objeto.
+    translate = (512, 400, 10) #Traslación del objeto. #Posición del objeto en el framebuffer.
 
     #Recorriendo las caras del objeto y dibujando las líneas en el framebuffer.
     for face in r.faces: 
@@ -52,8 +52,8 @@ def main():
             #print("Cara: ", f1, f2, f3, f4)
 
             #Dibujando los triangulos.
-            triangle(v1, v2, v3, col1)
-            triangle(v1, v3, v4, col1)
+            triangle(v1, v2, v4, col1)
+            triangle(v2, v4, v3, col1)
 
 
         elif len(face) == 3: #Validando que la cara tenga 3 vértices.

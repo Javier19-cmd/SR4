@@ -168,6 +168,8 @@ class Render(object):
                 for x in range(self.width):
                     f.write(self.framebuffer[y][x])
 
+            #print("Archivo escrito")
+
             #print(framebuffer)
             #print("Lista temporal en write", lista)
         
