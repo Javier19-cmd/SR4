@@ -20,9 +20,6 @@ class Render(object):
     #Método que escribe el framebuffer.
     def Framebuffer(self):
 
-        #print(colorP)
-
-        #print(colorP)
 
         #Llenando de bits el framebuffer.
         self.framebuffer = [
@@ -81,18 +78,10 @@ class Render(object):
         #         #print(framebuffer[x][y])
         #         framebuffer[x][y] = colorV
 
-        #print("sss")
-
         #framebuffer[Posx][Posy] = colorV #El color del viewport es el color actual.
 
     def Vertex(self,x, y):
         #En este método se dibuja un punto en el viewport.
-        #global equis, ye #Instanciando las variables globales de las posiciones del punto.
-
-
-        #print(equis, ye)
-
-        #print(x, y)
 
         #Colocar el punto en el viewport.
         self.framebuffer[y][x] = self.colorP #El color del punto es el color actual.
@@ -100,26 +89,6 @@ class Render(object):
 
         #print("Coordenadas del punto: ", ye, equis)
         #print("Punto: ", framebuffer[ye][equis])
-
-    """
-    def Line(x, y):
-        #En este método se dibuja una línea en el viewport.
-        global equis, ye #Instanciando las variables globales de las posiciones del punto.
-
-        #Llenando las variables globales.
-        equis = x
-        ye = y
-
-        #print(equis, ye)
-
-        #Colocar el punto en el viewport.
-        framebuffer[equis][ye] = colorA
-
-
-        #print("Coordenadas del punto: ", equis, ye)
-        print("Punto: ", framebuffer[equis][ye])
-    """
-
 
 
     #Método que escribe el archivo bmp.
@@ -155,29 +124,11 @@ class Render(object):
             #Lo anterior suma 40 bytes.
 
             #print("Framebuffer", framebuffer)
-
-            #print(framebuffer[Posx][Posy])
-
-            #Pintando el archivo de color negro.
-            # for x in range(altoP):
-            #     for y in range(anchoP):
-            #         f.write(framebuffer[y][x])
-
             #Pintando el archivo de color negro.
             for y in range(self.height):
                 for x in range(self.width):
                     f.write(self.framebuffer[y][x])
 
             #print("Archivo escrito")
-
-            #print(framebuffer)
-            #print("Lista temporal en write", lista)
-        
-            # framebuffer[Posx][Posy] = lista #El color del punto es el color actual.
-            # print("Framebuffer con el viewport cargado", framebuffer)
-            #Aquí encima se escribe el cuadrado para meter el punto.
-            #View(Posx, Posy, Ancho, Alto)
-            #punto(equis, ye) #Aquí se tiene que escribir el punto del archivo.
-
 
             f.close() #Cerrando el archivo que se escribió.

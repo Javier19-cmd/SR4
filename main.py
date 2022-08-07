@@ -52,8 +52,8 @@ def main():
             #print("Cara: ", f1, f2, f3, f4)
 
             #Dibujando los triangulos.
-            #triangle(v1, v2, v4, col1)
-            #triangle(v2, v4, v3, col1)
+            triangle(v1, v2, v4, col1)
+            triangle(v2, v4, v3, col1)
 
 
         elif len(face) == 3: #Validando que la cara tenga 3 vértices.

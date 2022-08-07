@@ -71,14 +71,6 @@ def glViewPort(x, y, width, height): #Se usará para definir el área de la imag
     else: 
         print("Error")
 
-#Rend2.View(equis, ye, ancho, alto) #Creando el viewport.
-#Variables para crear la ventana.
-#dimensiones = [glViewPort(1, 2, 100, 200)] #Se inicializan las dimensiones de la ventana en una lista.
-#Imprimiendo las dimensiones de la imagen.
-#print(dimensiones)
-
-#ancho = dimensiones[0][2] #Sacando el ancho de la imagen.
-#alto = dimensiones[0][3] #Sacando el alto de la imagen.
 
 #Preguntar si esta función lo que hace es llenar por primera vez el color de la pantalla.
 def glClear(): #Se usará para que llene el mapa de bits con un solo color.   
@@ -131,9 +123,9 @@ def glVertex(x, y): #Función que pueda cambiar el color de un punto de la panta
     #print("Alto: ", c1.height) #Alto de la pantalla
 
     #Verificando que las coordenadas no sean negativas.
-    if x < 0 or y < 0:
+    if x < 0 or y < 0: #Si las coordenadas son negativas, entonces se da un mensaje de error.
         return
-    elif x > c1.width or y > c1.height: #Verificando que las coordenadas no sean mayores a las dimensiones de la pantalla.
+    elif x > c1.width or y > c1.height: #Verificando que las coordenadas no se salgan de la pantalla.
         return
     else: #Si todo está bien, entonces se cambia el color del punto.
         c1.Vertex(x, y) #Se manda a hacer el punto.
@@ -266,12 +258,6 @@ def baricentrico(A, B, C, P):
 def triangle(A, B, C, col): #Función que dibuja un triángulo.
 
 
-    # c1.colorP = color(
-    #     random.uniform(0, 1),
-    #     random.uniform(0, 1),
-    #     random.uniform(0, 1)
-    # )
-
     #print(A, B, C) #Se imprimen las coordenadas.
 
 
@@ -280,6 +266,8 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
         random.uniform(0, 1),
         random.uniform(0, 1)
     ) #Se setea el color del punto.
+
+    #c1.colorP = col #Se setea el color del punto. (En este caso gris)
 
 
     #Calculando los mínimos y máximos de los puntos.
@@ -297,10 +285,10 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
         for y in range(min.y, max.y + 1):
             u, v, w = baricentrico(A, B, C, V3(x, y)) #Se calcula el baricéntrico.
 
-            if u < 0 and v < 0 and w < 0: #Si el baricéntrico es mayor o igual a 0, entonces se dibuja el punto.
+            if u < 0 or v < 0 or w < 0: #Si el baricéntrico es mayor o igual a 0, entonces se dibuja el punto.
                 #print("Punto: ", x, y)
                 continue
-            
+
             glVertex(x, y) #Se dibuja el punto.
 
 def glFinish(): #Función que escribe el archivo de imagen resultante.
