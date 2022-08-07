@@ -145,7 +145,7 @@ def glVertex(x, y): #Función que pueda cambiar el color de un punto de la panta
 
     #print("Hola ", movx, movy) #Debugging.
 
-    #if(0 < x < c1.widthV) and (0 < y < c1.heightV):
+    #if(x < c1.widthV) and (y < c1.heightV):
 
     c1.Vertex(x, y) #Creando el punto.
 
@@ -360,16 +360,16 @@ def baricentrico(A, B, C, P):
 def triangle(A, B, C, col): #Función que dibuja un triángulo.
 
 
-    c1.colorP = color(
-        random.uniform(0, 1),
-        random.uniform(0, 1),
-        random.uniform(0, 1)
-    )
+    # c1.colorP = color(
+    #     random.uniform(0, 1),
+    #     random.uniform(0, 1),
+    #     random.uniform(0, 1)
+    # )
 
     #print(A, B, C) #Se imprimen las coordenadas.
 
 
-    #c1.colorP = col #Se setea el color del punto.
+    c1.colorP = col #Se setea el color del punto.
 
     #Calculando los mínimos y máximos de los puntos.
     min, max = bounding_box(A, B, C)

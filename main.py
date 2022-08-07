@@ -21,7 +21,7 @@ def main():
 
     #glColor(0.5, 0.3, 0.1) #Asignando el color del punto.
 
-    col1 = color(0.46, 0.68, 0.51) #Color para el primer triángulo.
+    col1 = color(0.501, 0.501, 0.501) #Color gris.
 
     #triangle(V3(10, 70), V3(50, 160), V3(70, 80), col1) #Llamando al método triangle para dibujar un triángulo.
     #triangle(V3(180, 50), V3(150, 1), V3(70, 180), col2) #Llamando al método triangle para dibujar un triángulo.
@@ -29,8 +29,8 @@ def main():
 
 
     r = Object('modelo.obj') #Llamando al método Object del archivo Obj.py.
-    scale = (100, 100, 1) #Escala del objeto. Tamaño del objeto.
-    translate = (512, 400, 10) #Traslación del objeto. #Posición del objeto en el framebuffer.
+    scale = (450, 450, 1) #Escala del objeto. Tamaño del objeto.
+    translate = (512, 450, 10) #Traslación del objeto. #Posición del objeto en el framebuffer.
 
     #Recorriendo las caras del objeto y dibujando las líneas en el framebuffer.
     for face in r.faces: 
