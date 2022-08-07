@@ -145,9 +145,9 @@ def glVertex(x, y): #Función que pueda cambiar el color de un punto de la panta
 
     #print("Hola ", movx, movy) #Debugging.
 
-    if(0 < x < c1.widthV) and (0 < y < c1.heightV):
+    #if(0 < x < c1.widthV) and (0 < y < c1.heightV):
 
-        c1.Vertex(x, y) #Creando el punto.
+    c1.Vertex(x, y) #Creando el punto.
 
 """
 #Función que crea una línea entre dos puntos. Esta tiene que estar en el rango de 0 a 1.
@@ -324,29 +324,32 @@ def glColor(r, g, b): #Función con la que se pueda cambiar el color con el que 
         #print("El color del punto es: ", Color)
 
 
-def cross(v1, v2):
-    
-    return(
-        v1.x * v2.y - v1.y * v2.x,
-        v1.x * v2.z - v1.z * v2.x,
-        v1.x * v2.w - v1.w * v2.x,
-    )
+def bounding_box(A, B, C): #Función que calcula el bounding box de un triángulo.
 
-def bounding_box(A, B, C):
-    
-    xmin = min(A.x, B.x, C.x)
-    xmax = max(A.x, B.x, C.x)
-    ymin = min(A.y, B.y, C.y)
-    ymax = max(A.y, B.y, C.y)
-    
-    return V3(xmin, xmax), V3(ymin, ymax)
+    coords = [(A.x, A.y), (B.x, B.y), (C.x, C.y)] #Lista de coordenadas.
+
+    xmin = 999999 #Valor máximo de x.
+    xmax = -999999 #Valor mínimo de x.
+    ymin = 999999 #Valor máximo de y.
+    ymax = -999999 #Valor mínimo de y.
+
+    for (x, y) in coords: #Recorriendo las coordenadas. 
+        if x < xmin: #Si la coordenada x es menor que el valor mínimo de x, entonces se cambia el valor mínimo de x.
+            xmin = x 
+        if x > xmax: #Si la coordenada x es mayor que el valor máximo de x, entonces se cambia el valor máximo de x.
+            xmax = x
+        if y < ymin: #Si la coordenada y es menor que el valor mínimo de y, entonces se cambia el valor mínimo de y.
+            ymin = y
+        if y > ymax: #Si la coordenada y es mayor que el valor máximo de y, entonces se cambia el valor máximo de y.
+            ymax = y
+
+    return V3(xmin, xmax), V3(ymin, ymax) #Retornando los valores mínimos y máximos de x y y.
 
 def baricentrico(A, B, C, P):
 
-    cx, cy, cz = cross(
-        V3(B.x - A.x, C.x - A.x, A.x - P.x),
-        V3(B.y - A.y, C.y - A.y, A.y - P.y)
-    )
+    cx, cy, cz = V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y)
+
+    #print("¨Producto cruz: ", V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y))
 
     u = cx/cz
     v = cy/cz
@@ -376,13 +379,24 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
     min.round()
     max.round()
 
+    if min.x > max.x or min.y > max.y: #Si los mínimos son mayores que los máximos, entonces se cambian los valores.
+        min, max = max, min
+    
+
+    #print("Mínimo y máximo: ", min.x, max.x)
+
     for x in range(min.x, max.x + 1): #Recorriendo los puntos.
         for y in range(min.y, max.y + 1): #Recorriendo los puntos.
-            u, v, w = baricentrico(A, B, C, V3(x, y, 0)) #Calculando los valores de u, v y w.
+            
+            #print("Punto: ", x, y)
 
+            u, v, w = baricentrico(A, B, C, V3(x, y)) #Calculando los valores de u, v y w.
+            
             if (u < 0 or v < 0 or w < 0): #Si alguno de los valores es menor a 0, entonces no se dibuja el punto.
                 continue
-        
+            
+            #print("x y y: ", x, y)
+
             glVertex(x, y) #Se dibuja el punto.
 
 
