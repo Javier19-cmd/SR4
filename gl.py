@@ -14,6 +14,14 @@ Referencias:
 8. Simular un do-while: https://www.freecodecamp.org/espanol/news/python-bucle-do-while-ejemplos-de-bucles/#:~:text=Para%20crear%20un%20bucle%20do%20while%20en%20Python%2C%20necesitas%20modificar,verdadero%20se%20ejecutará%20otra%20vez.
 """
 
+
+"""
+SR4:
+
+1. Coordenadas baricéntricas (Ejemplo 9): 
+    https://www.programcreek.com/python/?CodeExample=get+bounding+box
+"""
+
 from Render import * #Importando la clase Render.
 from utilidades import *
 import random
@@ -114,122 +122,21 @@ def glClearColor(r, g, b): #Función con la que se pueda cambiar el color con el
         #Rend2.recibirColor(color(rP, gP, bP))
 
         #print("Color en glClearColor: ", color(rP, gP, bP)) #Debuggeo.
-"""
-def glVertex(x, y): #Función que pueda cambiar el color de un punto de la pantalla. Las coordenadas x, y son relativas al viewport que definieron con glViewPort. glVertex(0, 0) cambia el color del punto en el centro del viewport, glVertex(1, 1) en la esquina superior derecha. glVertex(-1, -1) la esquina inferior izquierda
-    #Ubicar un punto en el viewport.
-    
-    #Obteniendo el centro del viewport.
-    x0 = int(c1.xV + (c1.widthV/2))
-    y0 = int(c1.yV + (c1.heightV/2))
-
-    #Moviendo el punto a la posición deseada.
-    movx = x0 + int(x * (c1.widthV/2))
-    movy = y0 + int(y * (c1.heightV/2))
-
-    #Debuggeo.
-    print("Posiciones del punto trasladado ", movx, movy)
-
-    #print("Hola ", movx, movy) #Debugging.
-
-    c1.Vertex(movx, movy) #Creando el punto.
-"""
-
 
 def glVertex(x, y): #Función que pueda cambiar el color de un punto de la pantalla. Las coordenadas x, y son relativas al viewport que definieron con glViewPort. glVertex(0, 0) cambia el color del punto en el centro del viewport, glVertex(1, 1) en la esquina superior derecha. glVertex(-1, -1) la esquina inferior izquierda
-    #Ubicar un punto en el viewport.
+    #Debuggeo de los puntos.
+    #print("Punto: ", x, y)
 
-    
+    #print("Ancho: ", c1.width) #Ancho de la pantalla.
+    #print("Alto: ", c1.height) #Alto de la pantalla
 
-    #Debuggeo.
-    #print("Posiciones del punto trasladado ", x, y)
-
-    #print("Hola ", movx, movy) #Debugging.
-
-    #if(x < c1.widthV) and (y < c1.heightV):
-
-    c1.Vertex(x, y) #Creando el punto.
-
-"""
-#Función que crea una línea entre dos puntos. Esta tiene que estar en el rango de 0 a 1.
-def glLine(x0, y0, x1, y1):
-    #global ancho, alto, equis, ye #Variables globales que se usarán para definir el área de la imagen sobre la que se va a poder dibujar el punto.
-
-    #Verifiando las propiedades del viewport.
-    #print(ancho, alto, equis, ye)
-    
-    #Obteniendo el centro del viewport.
-    x = int(c1.xV + (c1.widthV/2))
-    y = int(c1.yV + (c1.heightV/2))
-
-    #Obteniendo las coordenadas de x0 y y0 con respecto al viewport.
-    movx1 = x + int(x0 * (c1.widthV/2))
-    movy1 = y + int(y0 * (c1.heightV/2))
-
-    #Obteniendo las coordenadas de x1 y y1 con respecto al viewport.
-    movx2 = x + int(x1 * (c1.widthV/2))
-    movy2 = y + int(y1 * (c1.heightV/2))
-
-    #Moviendo el punto a la posición deseada.
-    # dy = abs(y1 - y0)
-    # dx = abs(x1 - x0)
-
-    print("Posiciones del viewport ", c1.xV, c1.yV)
-
-    #Prueba.
-    dx1 = abs(movx2 - movx1)
-    dy1 = abs(movy2 - movy1)
-
-    #Debuggeo.
-    #print("Cambio en y y cambio en x ", dy, dx)
-    #print("Cambio en x y cambio en y ", dx1, dy1)
-
-
-    steep = dy1 > dx1 #Verificando si la línea es vertical o horizontal.
-
-    if steep: #Si la línea es vertical, entonces se cambia el orden de los puntos.
-        movx1, movy1 = movy1, movx1
-        movx2, movy2 = movy2, movx2
-    
-    if movx1 > movx2: #Si el punto 1 está a la derecha del punto 2, entonces se cambia el orden de los puntos.
-        movx1, movx2 = movx2, movx1
-        movy1, movy2 = movy2, movy1
-
-    #Calculando los nuevos cambios.
-    dx = abs(movx2 - movx1)
-    dy = abs(movy2 - movy1)
-
-    offset = 0 #Offset de la línea.
-    threshold = dx #Umbral de la línea.	
-    y = movy1 #Coordenada y de la línea.
-
-    #Verificando las variables.
-    #print("Offset, threshold, y ",offset, threshold, y)
-
-    #Dibujando la línea.
-    for x in range(movx1, movx2 + 1):
-        
-        offset += dy * 2 #Cambiando el offset.
-        if offset >= threshold: #Si el offset es mayor o igual al umbral, entonces se cambia la coordenada y.
-            y += 1 if movy1 < movy2 else -1
-            threshold += 2 * dx
-
-            #print("Punto inicial: ", movx1, movy1)
-            #print("Punto final: ", movx2, movy2)
-
-        if steep: #Si la línea es vertical, entonces se cambia el orden de los puntos.
-            #print(y, x)
-            #Rend2.Line(y, x)
-            #print("Puntos dados en decimales ", x0, y0, x1, y1)
-            c1.Vertex(y, x)
-            #glVertex(y, x)
-        else: #Si la línea es horizontal, entonces se cambia el orden de los puntos.
-            #print(x, y)
-            #Rend2.Line(x, y)
-            #print("Puntos dados en decimales ", x0, y0, x1, y1)
-            c1.Vertex(x, y)
-            #glVertex(x, y)
-"""
-
+    #Verificando que las coordenadas no sean negativas.
+    if x < 0 or y < 0:
+        return
+    elif x > c1.width or y > c1.height: #Verificando que las coordenadas no sean mayores a las dimensiones de la pantalla.
+        return
+    else: #Si todo está bien, entonces se cambia el color del punto.
+        c1.Vertex(x, y) #Se manda a hacer el punto.
 
 #Función que crea una línea entre dos puntos. Esta tiene que estar en el rango de 0 a 1.
 def glLine(v1, v2):
@@ -293,17 +200,10 @@ def glLine(v1, v2):
             #print("Punto final: ", movx2, movy2)
 
         if steep: #Si la línea es vertical, entonces se cambia el orden de los puntos.
-            #print(y, x)
-            #Rend2.Line(y, x)
-            #print("Puntos dados en decimales ", x0, y0, x1, y1)
             c1.Vertex(y, x)
-            #glVertex(y, x)
         else: #Si la línea es horizontal, entonces se cambia el orden de los puntos.
-            #print(x, y)
-            #Rend2.Line(x, y)
             #print("Puntos dados en decimales ", x0, y0, x1, y1)
             c1.Vertex(x, y)
-            #glVertex(x, y)
 
 
 def glColor(r, g, b): #Función con la que se pueda cambiar el color con el que funciona glVertex(). Los parámetros deben ser números en el rango de 0 a 1.
@@ -319,41 +219,47 @@ def glColor(r, g, b): #Función con la que se pueda cambiar el color con el que 
         Color = color(r, g, b) #Se manda a hacer el color con las utilidades y se setea el color.
         #print("Color en gl: ", Color)
         c1.colorP = Color #Se setea el color del punto.
-        #print("Color cambiando en el Render: ", c1.colorP)
-
-        #print("El color del punto es: ", Color)
 
 
 def bounding_box(A, B, C): #Función que calcula el bounding box de un triángulo.
 
-    coords = [(A.x, A.y), (B.x, B.y), (C.x, C.y)] #Lista de coordenadas.
+    coords = [(A.x, A.y), (B.x, B.y), (C.x, C.y)] #Se guardan las coordenadas de los puntos.
 
-    xmin = 999999 #Valor máximo de x.
-    xmax = -999999 #Valor mínimo de x.
-    ymin = 999999 #Valor máximo de y.
-    ymax = -999999 #Valor mínimo de y.
+    #Se calculan las coordenadas mínimas y máximas.
+    xmin = 99999
+    xmax = -99999
+    ymin = 99999
+    ymax = -99999
 
-    for (x, y) in coords: #Recorriendo las coordenadas. 
-        if x < xmin: #Si la coordenada x es menor que el valor mínimo de x, entonces se cambia el valor mínimo de x.
-            xmin = x 
-        if x > xmax: #Si la coordenada x es mayor que el valor máximo de x, entonces se cambia el valor máximo de x.
+
+    for (x, y) in coords: #Se recorren las coordenadas.
+
+        if x < xmin: #Si la coordenada x es menor que la mínima, se setea la mínima.
+            xmin = x
+        if x > xmax: #Si la coordenada x es mayor que la máxima, se setea la máxima.
             xmax = x
-        if y < ymin: #Si la coordenada y es menor que el valor mínimo de y, entonces se cambia el valor mínimo de y.
+        if y < ymin: #Si la coordenada y es menor que la mínima, se setea la mínima.
             ymin = y
-        if y > ymax: #Si la coordenada y es mayor que el valor máximo de y, entonces se cambia el valor máximo de y.
+        if y > ymax: #Si la coordenada y es mayor que la máxima, se setea la máxima.
             ymax = y
 
-    return V3(xmin, xmax), V3(ymin, ymax) #Retornando los valores mínimos y máximos de x y y.
+    #print("Coordenadas: ", x, y)
+
+    return V3(xmin, ymin), V3(xmax, ymax) #Se retornan las coordenadas mínimas y máximas.
+
+
+    #return V3(xmin, xmax), V3(ymin, ymax) #Retornando los valores mínimos y máximos de x y y.
 
 def baricentrico(A, B, C, P):
 
     cx, cy, cz = V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y)
+                    
 
     #print("¨Producto cruz: ", V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y))
 
     u = cx/cz
     v = cy/cz
-    w = 1 - (u + v)
+    w = 1 - u - v
 
     return (u, v, w)
 
@@ -369,129 +275,33 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
     #print(A, B, C) #Se imprimen las coordenadas.
 
 
-    c1.colorP = col #Se setea el color del punto.
+    c1.colorP = color(
+        random.uniform(0, 1),
+        random.uniform(0, 1),
+        random.uniform(0, 1)
+    ) #Se setea el color del punto.
+
 
     #Calculando los mínimos y máximos de los puntos.
-    min, max = bounding_box(A, B, C)
+    min, max = bounding_box(A, B, C) #Se calculan los mínimos y máximos de los puntos.
 
-    #print("Mínimos y máximos: ", xmin, xmax)
-    #Redondear los mínimos y máximos.
+    #print("Mínimos: ", min.x, min.y)
+    #print("Máximos: ", max.x, max.y)
+
+    #Redondeando los mínimos y máximos.
     min.round()
     max.round()
 
-    if min.x > max.x or min.y > max.y: #Si los mínimos son mayores que los máximos, entonces se cambian los valores.
-        min, max = max, min
-    
 
-    #print("Mínimo y máximo: ", min.x, max.x)
+    for x in range(min.x, max.x + 1):
+        for y in range(min.y, max.y + 1):
+            u, v, w = baricentrico(A, B, C, V3(x, y)) #Se calcula el baricéntrico.
 
-    for x in range(min.x, max.x + 1): #Recorriendo los puntos.
-        for y in range(min.y, max.y + 1): #Recorriendo los puntos.
-            
-            #print("Punto: ", x, y)
-
-            u, v, w = baricentrico(A, B, C, V3(x, y)) #Calculando los valores de u, v y w.
-            
-            if (u < 0 or v < 0 or w < 0): #Si alguno de los valores es menor a 0, entonces no se dibuja el punto.
+            if u < 0 and v < 0 and w < 0: #Si el baricéntrico es mayor o igual a 0, entonces se dibuja el punto.
+                #print("Punto: ", x, y)
                 continue
             
-            #print("x y y: ", x, y)
-
             glVertex(x, y) #Se dibuja el punto.
-
-
-    """
-     Este algoritmo se puede usar también.
-    """
-    # A.round()
-    # B.round()
-    # C.round()
-    
-    #print(random.uniform(0, 1))
-
-    #print(col)
-
-    # cols = color(
-    #     random.uniform(0, 1),
-    #     random.uniform(0, 1),
-    #     random.uniform(0, 1),
-    #     ) #Se manda a hacer el color con las utilidades y se setea el color.
-
-    #c1.colorP = col #Se setea el color del punto.
-
-    # c1.colorP = color(
-    #     random.uniform(0, 1),
-    #     random.uniform(0, 1),
-    #     random.uniform(0, 1)
-    # )
-
-    # #print(c1.colorP)
-
-    # #glLine(A, B)
-    # #glLine(B, C)
-    # #glLine(C, A)
-
-
-    # if A.y > B.y: #Si el y de A es mayor al B de y, entonces se hace un cambio.
-    #     A, B = B, A
-    # if A.y > C.y: #Si el y de A es mayor al C de y, entonces se hace un cambio.
-    #     A, C = C, A
-    # if B.y > C.y: #So se el y de B es mayor al C de y, entonces se hace un cambio.
-    #     B, C = C, B
-
-    # #c1.colorP = color(0, 0, 1) #Se setea el color del punto.
-    
-    # #Calculando la pendiente de la línea que va de a a c.
-    # dx_ac = C.x - A.x
-    # dy_ac = C.y - A.y
-
-    # if dy_ac == 0: #Evitando las divisiones por 0.
-    #     return
-
-    # mi_ac = dx_ac/dy_ac #Calculando la pendiente.
-
-    # #Calculando la pendiente de la línea que va de a a b.
-    # dx_ab = B.x - A.x
-    # dy_ab = B.y - A.y
-
-    # if dy_ab != 0: #Esto es para evitar que haya una división entre cero.
-
-    #     mi_ab = dx_ab/dy_ab #Calculando la pendiente.
-
-    #     #Primera mitad.
-    #     for y in range(A.y, B.y + 1):
-    #         xi = round(A.x - mi_ac * (A.y - y)) #Calculando el x inicial.
-    #         xf = round(A.x - mi_ab * (A.y - y)) #Calculando el x final.
-
-    #         if xi > xf: #Si el x inicial es mayor al x final, entonces se hace un cambio.
-    #             xi, xf = xf, xi
-
-    #         for x in range(xi, xf + 1): #Haciendo un for para dibujar las líneas.
-    #             c1.Vertex(x, y) #Dibujando el punto.
-
-
-    # #Calculando la pendiente de la línea que va de a a b.
-    # dx_bc = C.x - B.x
-    # dy_bc = C.y - B.y
-
-    # if dy_bc != 0: #Esto es para evitar que haya una división entre cero.
-    
-    #     mi_bc = dx_bc/dy_bc #Calculando la pendiente.
-
-
-    #     #Segunda mitad.
-    #     for y in range(B.y, C.y + 1):
-    #         xi = round(A.x - mi_ac * (A.y - y)) #Calculando el x inicial.
-    #         xf = round(B.x - mi_bc * (B.y - y)) #Calculando el x final.
-
-    #         if xi > xf: #Si el x inicial es mayor al x final, entonces se hace un cambio.
-    #             xi, xf = xf, xi
-
-    #         for x in range(xi, xf + 1): #Haciendo un for para dibujar las líneas.
-    #             c1.Vertex(x, y) #Dibujando el punto.
-
-
-
 
 def glFinish(): #Función que escribe el archivo de imagen resultante.
 
