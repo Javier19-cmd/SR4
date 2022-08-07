@@ -87,6 +87,7 @@ def glClear(): #Se usará para que llene el mapa de bits con un solo color.
     
     c1.Framebuffer() #Llenando el framebuffer con el color que se le pasó en glClearColor.
 
+    c1.zuffer() #Llenando el z-buffer con -9999.
     #Debugging.
     #print(anchoV)
     #print(altoV) 
@@ -213,6 +214,14 @@ def glColor(r, g, b): #Función con la que se pueda cambiar el color con el que 
         c1.colorP = Color #Se setea el color del punto.
 
 
+def cross(V1, V2): #Producto cruz entre dos vectores, pero con return de V3.
+
+    return V3(
+        V1.y * V2.z - V1.z * V2.y,
+        V1.z * V2.x - V1.x * V2.z,
+        V1.x * V2.y - V1.y * V2.x
+    )
+
 def bounding_box(A, B, C): #Función que calcula el bounding box de un triángulo.
 
     coords = [(A.x, A.y), (B.x, B.y), (C.x, C.y)] #Se guardan las coordenadas de los puntos.
@@ -251,21 +260,47 @@ def baricentrico(A, B, C, P):
 
     u = cx/cz
     v = cy/cz
-    w = 1 - u - v
+    w = 1 - (u + v)
 
     return (u, v, w)
 
 def triangle(A, B, C, col): #Función que dibuja un triángulo.
 
+    #print(col[0], col[1], col[2])
 
     #print(A, B, C) #Se imprimen las coordenadas.
 
+    L = V3(0, 0, -1) #Vector de la luz.
+
+    #Calculando la normal.
+    N = cross((B - A), (C - A)) #Se calcula la normal.
+
+    #print("Normal: ", N) #Se imprime la normal.
+
+    i = L @ N.normalice() #Se calcula el producto punto. Esto es para la intensidad del color.
+
+    #print("Producto punto: ", i) #Se imprime el producto punto.
+
+    #print(col[0] * i, col[1] * i, col[2] * i) #Se imprime el color.
+
+    if i < 0: #Si i es menor a 1, entonces el punto está opuesto a la luz.
+        return
+    
+    #print("Producto punto: ", i)
 
     c1.colorP = color(
-        random.uniform(0, 1),
-        random.uniform(0, 1),
-        random.uniform(0, 1)
-    ) #Se setea el color del punto.
+        col[0] * i * 2, 
+        col[1] * i * 2, 
+        col[2] * i * 2
+        ) #Se setea el color del punto.
+
+    #print("Color: ", c1.colorP)
+
+    # c1.colorP = color(
+    #     random.uniform(0, 1),
+    #     random.uniform(0, 1),
+    #     random.uniform(0, 1)
+    # ) #Se setea el color del punto.
 
     #c1.colorP = col #Se setea el color del punto. (En este caso gris)
 
@@ -276,7 +311,7 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
     #print("Mínimos: ", min.x, min.y)
     #print("Máximos: ", max.x, max.y)
 
-    #Redondeando los mínimos y máximos.
+    #Redondeando los mínimos y máximos para poderlos meter a los for-loops.
     min.round()
     max.round()
 
@@ -289,7 +324,14 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
                 #print("Punto: ", x, y)
                 continue
 
-            glVertex(x, y) #Se dibuja el punto.
+            #print(c1.colorP)
+
+            z = A.z * u + B.z * v + C.z * w #Se calcula la z.
+
+            if (c1.zBuffer[x][y] < z):
+                c1.zBuffer[x][y] = z #Se setea la z.
+                glVertex(x, y) #Se dibuja el punto.
+            #glVertex(x, y) #Se dibuja el punto.
 
 def glFinish(): #Función que escribe el archivo de imagen resultante.
 

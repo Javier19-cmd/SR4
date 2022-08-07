@@ -17,6 +17,10 @@ class Render(object):
     yV = 0 #Posición en y del viewport.
     colorP = WHITE #Asignando el color blanco al punto. Esto es temporal.
 
+    colorZ = -9999 #Color del zbuffer.
+
+    zBuffer = [] #Zbuffer.
+
     #Método que escribe el framebuffer.
     def Framebuffer(self):
 
@@ -27,8 +31,17 @@ class Render(object):
             for y in range(self.height)
         ]
 
-        print("Ancho y alto: ", self.width, self.height)
+
+        #print("Ancho y alto: ", self.width, self.height)
         #print("Framebuffer: ", self.framebuffer)
+
+    def zuffer(self):
+
+        #Llenando de bits el zBuffer.
+        self.zBuffer = [
+            [-9999 for x in range(self.width)]
+            for y in range(self.height)
+        ]
 
 
     #Método que dibuja un punto.
