@@ -58,7 +58,11 @@ class V3(object):
         return (self.x**2 + self.y**2 + self.z**2)**0.5
 
     def normalice(self):#Normaliza el vector.
-        return self * (1 / self.len())
+
+        try: #Si el vector no es cero, entonces normaliza.
+            return self * (1 / self.len())
+        except: #Si el vector es cero, entonces devuelve un vector cero.
+            return V3(-1, -1, -1)
 
     def __repr__(self): #Overloading de la funcion __repr__
         #Devuelve una cadena que representa el objeto.

@@ -4,7 +4,7 @@ class Render(object):
 
     #Estas variables son globales y tienen valores por defecto y arbitrarios.
     WHITE = color(1, 1, 1) #Color blanco hecho con las utilidades.
-    colorFondo = WHITE #Asignando el color blanco al framebuffer.
+    colorFondo = 0 #Asignando el color blanco al framebuffer.
     #print("Color del fondo: ", colorFondo)
     colorViewPort = WHITE #Asignando el color blanco al viewport. Esto es temporal-
     width = 0 #Ancho de la pantalla. Esto es temporal.
@@ -15,33 +15,11 @@ class Render(object):
 
     xV = 0 #Posición en x del viewport.
     yV = 0 #Posición en y del viewport.
-    colorP = WHITE #Asignando el color blanco al punto. Esto es temporal.
+    colorP = 0 #Asignando el color blanco al punto. Esto es temporal.
 
-    colorZ = -9999 #Color del zbuffer.
+    framebuffer = [] #Framebuffer.
 
     zBuffer = [] #Zbuffer.
-
-    #Método que escribe el framebuffer.
-    def Framebuffer(self):
-
-
-        #Llenando de bits el framebuffer.
-        self.framebuffer = [
-            [self.colorFondo for x in range(self.width)]
-            for y in range(self.height)
-        ]
-
-
-        #print("Ancho y alto: ", self.width, self.height)
-        #print("Framebuffer: ", self.framebuffer)
-
-    def zuffer(self):
-
-        #Llenando de bits el zBuffer.
-        self.zBuffer = [
-            [-9999 for x in range(self.width)]
-            for y in range(self.height)
-        ]
 
 
     #Método que dibuja un punto.

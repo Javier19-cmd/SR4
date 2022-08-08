@@ -13,7 +13,7 @@ from vector import * #Importando los métodos del archivo vector.py.
 
 def main():
     glCreateWindow(1024, 1024) #Creando la ventana.
-    glClearColor(0, 0, 0) #Color del fondo.
+    glClearColor(1, 1, 1) #Color del fondo.
     glClear() #Limpiando el framebuffer con el color creado en glClearColor.
     
     
@@ -30,8 +30,8 @@ def main():
     #triangle(V3(180, 150), V3(120, 160), V3(130, 180), col3) #Llamando al método triangle para dibujar un triángulo.
 
 
-    r = Object('modelo.obj') #Llamando al método Object del archivo Obj.py.
-    scale = (400, 400, 500) #Escala del objeto. Tamaño del objeto.
+    r = Object('Porsche.obj') #Llamando al método Object del archivo Obj.py.
+    scale = (5, 5, 50) #Escala del objeto. Tamaño del objeto.
     translate = (512, 490, 0) #Traslación del objeto. #Posición del objeto en el framebuffer.
 
     #Recorriendo las caras del objeto y dibujando las líneas en el framebuffer.

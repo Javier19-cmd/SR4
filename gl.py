@@ -85,9 +85,17 @@ def glClear(): #Se usará para que llene el mapa de bits con un solo color.
     # else: #Si todo está bien, entonces se llena el mapa de bits con el color que se le pasa.
     #     #print(color(rP, gP, bP))
     
-    c1.Framebuffer() #Llenando el framebuffer con el color que se le pasó en glClearColor.
+    #c1.Framebuffer() #Llenando el framebuffer con el color que se le pasó en glClearColor.
 
-    c1.zuffer() #Llenando el z-buffer con -9999.
+    c1.framebuffer = [
+                    [c1.colorFondo for x in range(c1.width)] #Llenando el framebuffer con el color que se le pasó en glClearColor.
+                      for y in range(c1.height)
+                    ] #Llenando el framebuffer con el color que se le pasó en glClearColor.
+
+    c1.zBuffer = [
+                    [-9999 for x in range(c1.width)] #Llenando el zBuffer con un valor muy pequeño.
+                    for y in range(c1.height)
+                ] #Llenando el zBuffer con un valor muy pequeño.
     #Debugging.
     #print(anchoV)
     #print(altoV) 
@@ -258,11 +266,20 @@ def baricentrico(A, B, C, P):
 
     #print("¨Producto cruz: ", V3(B.x - A.x, C.x - A.x, A.x - P.x) * V3(B.y - A.y, C.y - A.y, A.y - P.y))
 
-    u = cx/cz
-    v = cy/cz
-    w = 1 - (u + v)
+    #print("Valor de cz: ", cz)
 
-    return (u, v, w)
+    if cz == 0: #Si el valor de cz es 0, entonces el punto no está en el plano.
+        u, v = -1, -1
+        w = -1
+
+        return (u, v, w)
+    else: #Si el valor de cz es diferente de 0, entonces el punto está en el plano.
+
+        u = cx/cz
+        v = cy/cz
+        w = 1 - (u + v)
+
+        return (u, v, w)
 
 def triangle(A, B, C, col): #Función que dibuja un triángulo.
 
@@ -273,11 +290,11 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
     L = V3(0, 0, -1) #Vector de la luz.
 
     #Calculando la normal.
-    N = cross((B - A), (C - A)) #Se calcula la normal.
+    N = cross((C - A), (B - A)) #Se calcula la normal.
 
     #print("Normal: ", N) #Se imprime la normal.
 
-    i = L @ N.normalice() #Se calcula el producto punto. Esto es para la intensidad del color.
+    i = L.normalice() @ N.normalice() #Se calcula el producto punto. Esto es para la intensidad del color.
 
     #print("Producto punto: ", i) #Se imprime el producto punto.
 
@@ -289,10 +306,10 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
     #print("Producto punto: ", i)
 
     c1.colorP = color(
-        col[0] * i * 2, 
-        col[1] * i * 2, 
-        col[2] * i * 2
-        ) #Se setea el color del punto.
+        col[0] * i, 
+        col[1] * i, 
+        col[2] * i
+        ) #Se setea el color del punto en escala de grises.
 
     #print("Color: ", c1.colorP)
 
@@ -329,6 +346,7 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
             z = A.z * u + B.z * v + C.z * w #Se calcula la z.
 
             if (c1.zBuffer[x][y] < z):
+                #print(c1.zBuffer[x][y])
                 c1.zBuffer[x][y] = z #Se setea la z.
                 glVertex(x, y) #Se dibuja el punto.
             #glVertex(x, y) #Se dibuja el punto.
