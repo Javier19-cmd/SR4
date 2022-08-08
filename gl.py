@@ -20,6 +20,9 @@ SR4:
 
 1. Coordenadas baricéntricas (Ejemplo 9): 
     https://www.programcreek.com/python/?CodeExample=get+bounding+box
+
+2. Evitando la división entre cero: 
+    https://www.yawintutor.com/zerodivisionerror-division-by-zero/
 """
 
 from Render import * #Importando la clase Render.

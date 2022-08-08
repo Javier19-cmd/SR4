@@ -31,8 +31,8 @@ def main():
 
 
     r = Object('Porsche.obj') #Llamando al método Object del archivo Obj.py.
-    scale = (5, 5, 50) #Escala del objeto. Tamaño del objeto.
-    translate = (512, 490, 0) #Traslación del objeto. #Posición del objeto en el framebuffer.
+    scale = (5, 5, 15) #Escala del objeto. Tamaño del objeto.
+    translate = (512, 300, 0) #Traslación del objeto. #Posición del objeto en el framebuffer.
 
     #Recorriendo las caras del objeto y dibujando las líneas en el framebuffer.
     for face in r.faces: 
