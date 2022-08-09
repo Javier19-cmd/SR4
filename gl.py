@@ -299,9 +299,7 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
 
     i = L.normalice() @ N.normalice() #Se calcula el producto punto. Esto es para la intensidad del color.
 
-    #print("Producto punto: ", i) #Se imprime el producto punto.
-
-    #print(col[0] * i, col[1] * i, col[2] * i) #Se imprime el color.
+    #print("Intensidad: ", i) #Se imprime la intensidad.
 
     if i < 0: #Si i es menor a 1, entonces el punto está opuesto a la luz.
         return
@@ -343,14 +341,16 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
             if u < 0 or v < 0 or w < 0: #Si el baricéntrico es mayor o igual a 0, entonces se dibuja el punto.
                 #print("Punto: ", x, y)
                 continue
-
-            #print(c1.colorP)
+            
+            #print("Color del fondo: ", c1.colorFondo)
+            #print("Color del punto", c1.colorP)
 
             z = A.z * u + B.z * v + C.z * w #Se calcula la z.
 
             if (c1.zBuffer[x][y] < z):
                 #print(c1.zBuffer[x][y])
                 c1.zBuffer[x][y] = z #Se setea la z.
+                #print(c1.zBuffer[x][y])
                 glVertex(x, y) #Se dibuja el punto.
             #glVertex(x, y) #Se dibuja el punto.
 
