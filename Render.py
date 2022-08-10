@@ -83,7 +83,7 @@ class Render(object):
 
 
     #Método que escribe el archivo bmp.
-    def write(self):
+    def write(self): #Escribir un archivo, pero con el zbuffer.
             
             #Se abre el archivo con la forma de bw.
             f = open("SR4.bmp", "bw")
