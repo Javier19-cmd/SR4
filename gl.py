@@ -35,8 +35,6 @@ c1 = Render() #Inicializando la clase Render.
 #Pregunar si está bien implementada esta función.
 def glInit(): #Se usará para poder inicializar cualquier objeto interno que requiera el software de render.
 
-    #Importar la clase de Render.
-    #r = Render.Render(ancho, alto, glClear(), glColor(0.003, 1, 0.019)) #Creando el color de la línea.) #Creando el framebuffer con el color que se le pasa.
     pass
 
 def glCreateWindow(width, height): #Preguntar de esta función.
@@ -99,10 +97,10 @@ def glClear(): #Se usará para que llene el mapa de bits con un solo color.
                     [-9999 for x in range(c1.width)] #Llenando el zBuffer con un valor muy pequeño.
                     for y in range(c1.height)
                 ] #Llenando el zBuffer con un valor muy pequeño.
-    #Debugging.
-    #print(anchoV)
-    #print(altoV) 
-    #print(Rend.Render.framebuffer)
+    
+    #print("zBufferE ", c1.zBufferE) #Imprimiendo el zBufferE.
+
+    #print("zBufferE: ", c1.zBufferE) #Imprimiendo el zBufferE.
 
 def glClearColor(r, g, b): #Función con la que se pueda cambiar el color con el que funciona glClear(). Los parámetros deben ser números en el rango de 0 a 1.
         
@@ -346,6 +344,7 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
             #print("Color del punto", c1.colorP)
 
             z = A.z * u + B.z * v + C.z * w #Se calcula la z.
+        
 
             if (c1.zBuffer[x][y] < z):
                 #print(c1.zBuffer[x][y])
@@ -354,9 +353,29 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
                 glVertex(x, y) #Se dibuja el punto.
             #glVertex(x, y) #Se dibuja el punto.
 
+def zBuffer(): 
+    
+    #Copiar el zBuffer al zBufferE.
+    c1.zBufferE = c1.zBuffer.copy() #Copiar el zBuffer al zBufferE.
+
+    #Recorriendo el zBufferE. Si hay un -9999, entonces se cambia por un 0.
+    for i in range(c1.height):
+        for j in range(c1.width):
+            if c1.zBufferE[i][j] == -9999: #Si el zBufferE tiene un -9999, entonces se cambia por un 0.
+                c1.zBufferE[i][j] = color(0, 0, 0)
+            elif c1.zBufferE[i][j] < 0: #Si el zBufferE tiene un valor menor a 0, entonces se cambia por un 0.
+                c1.zBufferE[i][j] = color(0, 0, 0)
+            elif c1.zBufferE[i][j] > 1 and c1.zBufferE[i][j] < 255: #Si el zBufferE tiene un valor mayor a 1, pero menor a 255, entonces dividir el número entre 255.
+                c1.zBufferE[i][j] = color(int(c1.zBufferE[i][j] / 255), int(c1.zBufferE[i][j] / 255), int(c1.zBufferE[i][j] / 255))
+                #print(c1.zBufferE[i][j])
+            elif c1.zBufferE[i][j] > 255: #Si hay un valor mayor a 255, entonces se cambia por un 1.
+                c1.zBufferE[i][j] = color(1, 1, 1)
+            else: #Si hay algún color sesgado entre 0 y 1, entonces se pintan.
+                c1.zBufferE[i][j] = color(int(c1.zBufferE[i][j]), int(c1.zBufferE[i][j]), int(c1.zBufferE[i][j]))
+
 def glFinish(): #Función que escribe el archivo de imagen resultante.
 
    c1.write() #Escribiendo el archivo.
-   #c1.write2() #Escribiendo el archivo con el zBuffer.
+   c1.write2() #Escribiendo el archivo con el zBuffer.
 
 

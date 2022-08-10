@@ -77,7 +77,8 @@ def main():
             #colr = color(1, 0, 0) #Color para el triángulo.
 
             triangle(v1, v2, v3, col1) #Llamando al método triangle para dibujar un triángulo.
-            
+    
+    zBuffer() #Haciendo la copia del z-buffer.
     glFinish() #Escribiendo el framebuffer en la imagen y guardándola en un archivo.
 
 main()

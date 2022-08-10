@@ -21,6 +21,9 @@ class Render(object):
 
     zBuffer = [] #Zbuffer.
 
+    zBufferE = [] #Copia del zbuffer, que servirá para escribir el archivo del zbuffer.
+
+    colorZ = 0 #Color del zbuffer.
 
     #Método que dibuja un punto.
     def punto(self,x, y):
@@ -62,24 +65,12 @@ class Render(object):
         
         #print(framebuffer)
 
-        #Hacer un cuadrado en el framebuffer.
-        # for x in range(Ancho):
-        #     for y in range(Alto):
-        #         #print(Posx, Posy)
-        #         #print(framebuffer[x][y])
-        #         framebuffer[x][y] = colorV
-
-        #framebuffer[Posx][Posy] = colorV #El color del viewport es el color actual.
 
     def Vertex(self,x, y):
         #En este método se dibuja un punto en el viewport.
 
         #Colocar el punto en el viewport.
         self.framebuffer[y][x] = self.colorP #El color del punto es el color actual.
-
-
-        #print("Coordenadas del punto: ", ye, equis)
-        #print("Punto: ", framebuffer[ye][equis])
 
 
     #Método que escribe el archivo bmp.
