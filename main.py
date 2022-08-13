@@ -13,7 +13,7 @@ from vector import * #Importando los métodos del archivo vector.py.
 
 def main():
     glCreateWindow(1024, 1024) #Creando la ventana.
-    glClearColor(1, 1, 1) #Color del fondo.
+    glClearColor(0, 0, 0) #Color del fondo.
     glClear() #Limpiando el framebuffer con el color creado en glClearColor.
     
     
@@ -35,7 +35,6 @@ def main():
 
     modelo("./Porsche.obj", scale, translate, col1) #Pintando el objeto en escala de grises.
     
-
     zBuffer() #Haciendo la copia del z-buffer.
     glFinish() #Escribiendo el framebuffer en la imagen y guardándola en un archivo.
 

@@ -153,7 +153,7 @@ class Render(object):
             #Pintando el archivo de color negro.
             for y in range(self.height):
                 for x in range(self.width):
-                    f.write(self.zBufferE[x][y])
+                    f.write(self.zBufferE[y][x])
 
             #print("Archivo escrito")
 
