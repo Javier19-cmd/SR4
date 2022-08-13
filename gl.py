@@ -400,7 +400,6 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
                 c1.zBuffer[x][y] = z #Se setea la z.
                 #print(c1.zBuffer[x][y])
                 glVertex(x, y) #Se dibuja el punto.
-            #glVertex(x, y) #Se dibuja el punto.
 
 
 def zBuffer(): 
@@ -421,7 +420,7 @@ def zBuffer():
             elif c1.zBufferE[i][j] > 255: #Si hay un valor mayor a 255, entonces se cambia por un 1.
                 c1.zBufferE[i][j] = color(1, 1, 1)
             else: #Si hay algún color sesgado entre 0 y 1, entonces se pintan.
-                c1.zBufferE[i][j] = color(int(c1.zBufferE[i][j]), int(c1.zBufferE[i][j]), int(c1.zBufferE[i][j]))
+                c1.zBufferE[i][j] = color(int(c1.zBufferE[i][j]/255), int(c1.zBufferE[i][j]/255), int(c1.zBufferE[i][j]/255))
 
 def glFinish(): #Función que escribe el archivo de imagen resultante.
 

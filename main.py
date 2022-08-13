@@ -33,7 +33,8 @@ def main():
     translate = (512, 300, 0) #Traslación del objeto. #Posición del objeto en el framebuffer.
     
 
-    modelo("./Porsche.obj", scale, translate, col1)
+    modelo("./Porsche.obj", scale, translate, col1) #Pintando el objeto en escala de grises.
+    
 
     zBuffer() #Haciendo la copia del z-buffer.
     glFinish() #Escribiendo el framebuffer en la imagen y guardándola en un archivo.

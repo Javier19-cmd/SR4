@@ -23,6 +23,8 @@ class Render(object):
 
     zBufferE = [] #Copia del zbuffer, que servirá para escribir el archivo del zbuffer.
 
+    ZBuffer = [] #Zbuffer.
+
     colorZ = 0 #Color del zbuffer.
 
     #Método que dibuja un punto.
