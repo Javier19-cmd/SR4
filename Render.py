@@ -23,8 +23,6 @@ class Render(object):
 
     zBufferE = [] #Copia del zbuffer, que servirá para escribir el archivo del zbuffer.
 
-    ZBuffer = [] #Zbuffer.
-
     colorZ = 0 #Color del zbuffer.
 
     #Método que dibuja un punto.
@@ -153,7 +151,7 @@ class Render(object):
             #Pintando el archivo de color negro.
             for y in range(self.height):
                 for x in range(self.width):
-                    f.write(self.zBufferE[y][x])
+                    f.write(self.zBufferE[x][y])
 
             #print("Archivo escrito")
 
