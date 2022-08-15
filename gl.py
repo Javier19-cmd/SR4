@@ -392,7 +392,7 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
             #print("Color del fondo: ", c1.colorFondo)
             #print("Color del punto", c1.colorP)
 
-            z = A.z * u + B.z * v + C.z * w #Se calcula la z.
+            z = A.z * w + B.z * v + C.z * u #Se calcula la z.
         
 
             if (c1.zBuffer[x][y] < z):
