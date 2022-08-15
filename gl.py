@@ -337,10 +337,10 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
 
     #print(A, B, C) #Se imprimen las coordenadas.
 
-    L = V3(0, 0, -1) #Vector de la luz.
+    L = V3(0, 0, 1) #Vector de la luz.
 
     #Calculando la normal.
-    N = cross((C - A), (B - A)) #Se calcula la normal.
+    N = cross((B - A), (C - A)) #Se calcula la normal.
 
     #print("Normal: ", N) #Se imprime la normal.
 
