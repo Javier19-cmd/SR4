@@ -343,14 +343,18 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
     N = cross((B - A), (C - A)) #Se calcula la normal.
 
     #print("Normal: ", N) #Se imprime la normal.
-
+    
     i = L.normalice() @ N.normalice() #Se calcula el producto punto. Esto es para la intensidad del color.
+
+    #i = L.normalice() @ N.normalice() * 5 #Se calcula el producto punto. Esto es para la intensidad del color.
 
     #print("Intensidad: ", i) #Se imprime la intensidad.
 
     if i < 0: #Si i es menor a 1, entonces el punto está opuesto a la luz.
         #i = abs(i)
         return
+    # if i > 1: #Si i es mayor a 1, entonces el punto está en la misma dirección que la luz.
+    #     i = 1 #Si i es mayor a 1, entonces el punto está en la misma dirección que la luz.
     
     #print("Producto punto: ", i)
 
