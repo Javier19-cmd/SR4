@@ -349,6 +349,7 @@ def triangle(A, B, C, col): #Función que dibuja un triángulo.
     #print("Intensidad: ", i) #Se imprime la intensidad.
 
     if i < 0: #Si i es menor a 1, entonces el punto está opuesto a la luz.
+        #i = abs(i)
         return
     
     #print("Producto punto: ", i)
