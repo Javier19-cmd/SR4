@@ -419,14 +419,44 @@ def zBuffer():
             if c1.zBufferE[i][j] == -9999: #Si el zBufferE tiene un -9999, entonces se cambia por un 0.
                 c1.zBufferE[i][j] = color(0, 0, 0)
             elif c1.zBufferE[i][j] < 0: #Si el zBufferE tiene un valor menor a 0, entonces se cambia por un 0.
-                c1.zBufferE[i][j] = color(0, 0, 0)
+                
+                cols = abs(c1.zBufferE[i][j]) #Se calcula el valor absoluto del zBufferE.
+
+                cols = cols / 255 #Se divide el valor absoluto entre 255.
+
+                if cols > 1: #Si el valor absoluto es mayor a 1, entonces se cambia por 1.
+                    #Restar recursivamente 1 hasta que sea menor a 1.
+                    while cols > 1:
+                        cols -= 1 #Restar recursivamente 1 hasta que sea menor a 1.
+
+                c1.zBufferE[i][j] = color(cols, cols, cols) #Se setea el color del zBufferE.
+
             elif c1.zBufferE[i][j] > 1 and c1.zBufferE[i][j] < 255: #Si el zBufferE tiene un valor mayor a 1, pero menor a 255, entonces dividir el número entre 255.
-                c1.zBufferE[i][j] = color(int(c1.zBufferE[i][j] / 255), int(c1.zBufferE[i][j] / 255), int(c1.zBufferE[i][j] / 255))
-                #print(c1.zBufferE[i][j])
+                colors = c1.zBufferE[i][j]  / 255 #Dividiendo el número entre 255. 
+                
+                c1.zBufferE[i][j] = color(colors, colors, colors)
+                
+                #print("Color: ", color(colors, colors, colors))
             elif c1.zBufferE[i][j] > 255: #Si hay un valor mayor a 255, entonces se cambia por un 1.
-                c1.zBufferE[i][j] = color(1, 1, 1)
+                #Restar recursivamente 255 hasta que sea menor a 255.
+                while c1.zBufferE[i][j] > 255:
+                    c1.zBufferE[i][j] -= 255
+
+                colors = c1.zBufferE[i][j] / 255 #Dividiendo el número entre 255.
+
+                c1.zBufferE[i][j] = color(colors, colors, colors) #Se setea el color del zBufferE.
             else: #Si hay algún color sesgado entre 0 y 1, entonces se pintan.
-                c1.zBufferE[i][j] = color(int(c1.zBufferE[i][j]), int(c1.zBufferE[i][j]), int(c1.zBufferE[i][j]))
+                
+                cols = abs(c1.zBufferE[i][j]) #Se calcula el valor absoluto del zBufferE.
+
+                cols = cols / 255 #Se divide el valor absoluto entre 255.
+
+                if cols > 1: #Si el valor absoluto es mayor a 1, entonces se cambia por 1.
+                    #Restar recursivamente 1 hasta que sea menor a 1.
+                    while cols > 1:
+                        cols -= 1 #Restar recursivamente 1 hasta que sea menor a 1.
+
+                c1.zBufferE[i][j] = color(cols, cols, cols) #Se setea el color del zBufferE.
 
 def glFinish(): #Función que escribe el archivo de imagen resultante.
 
